@@ -7,8 +7,12 @@ A Thai-language guide to the game Deadlock, written to be short and easy to unde
 ### Site
 
 **Tab**:
-A top-level part of the site covering one subject: Heroes, Items, Commands (in menu order). Every tab is in the site menu; a tab without content yet shows a "Coming soon" page.
+A top-level part of the site covering one subject: Heroes, Items, Commands, Glossary (in menu order). Every tab is in the site menu; a tab without content yet shows a "Coming soon" page.
 _Avoid_: section (used for parts of a page), category
+
+**Term**:
+A game word, such as a stat name (Fire Rate, Bullet Resist), that the Glossary tab explains in Thai. Its name stays as shown in the game.
+_Avoid_: definition, vocabulary, คำศัพท์ (as a label)
 
 **Hero**:
 A playable character in Deadlock, named as in the game.

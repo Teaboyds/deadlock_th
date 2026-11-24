@@ -1,0 +1,157 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageContents from '../components/PageContents.astro';
+import { termGroups } from '../data/term-groups';
+import { itemPath } from '../data/item-categories';
+import { termForLabel } from '../lib/terms';
+import { formatStat } from '../lib/item-format';
+
+const terms = await getCollection('terms');
+const items = await getCollection('items');
+
+// Items that give each term, worked out from the items' stat labels (never hand-written).
+const givenBy = (termId: string) =>
+  items
+    .flatMap((item) =>
+      [...item.data.stats, ...(item.data.passive?.stats ?? [])]
+        .filter((stat) => termForLabel(stat.label, terms)?.id === termId)
+        .map((stat) => ({ item, stat })),
+    )
+    .sort((a, b) => a.item.data.name.localeCompare(b.item.data.name));
+
+const groups = termGroups.map((group) => ({
+  ...group,
+  terms: terms
+    .filter((t) => t.data.group === group.id)
+    .sort((a, b) => Number(b.data.overview) - Number(a.data.overview) || a.data.name.localeCompare(b.data.name)),
+}));
+
+// Contents: each group, with its terms nested under it.
+const contents = groups.flatMap((group) => [
+  { href: `#term-group-${group.id}`, label: group.label },
+  ...group.terms.map((term) => ({ href: `#term-${term.id}`, label: term.data.name, nested: true })),
+]);
+---
+
+<SiteLayout title="Glossary" currentTab="glossary" wide>
+  <h1 class="deco-title mb-6 text-center text-4xl sm:text-5xl">Glossary</h1>
+  <p class="mx-auto mb-8 max-w-2xl text-center">
+    ศัพท์พื้นฐานที่เจอในร้านค้าและในเกม อธิบายสั้น ๆ เป็นภาษาไทย ชื่อแต่ละคำใช้ตามที่เห็นในเกม
+  </p>
+
+  <div class="items-start wide:grid wide:grid-cols-[var(--sidebar)_minmax(0,1fr)] wide:gap-x-(--sidebar-gap)">
+    <PageContents items={contents} />
+    <div class="min-w-0">
+      <!-- Hidden until the script runs, so readers without JavaScript only see the full list. -->
+      <form class="mx-auto mb-4 max-w-xl" role="search" aria-label="ค้นหาคำศัพท์" data-term-search hidden>
+        <input
+          type="search"
+          class="input w-full border-base-300 bg-base-200"
+          aria-label="ค้นหาคำศัพท์"
+          placeholder="ชื่อภาษาอังกฤษหรือความหมายภาษาไทย"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </form>
+      <p class="my-8 text-center text-secondary" role="status" data-term-empty hidden>ไม่พบคำศัพท์ที่ตรงกับการค้นหา</p>
+
+      {
+        groups.map((group) => (
+          <section class="mt-10" aria-labelledby={`term-group-${group.id}`} data-term-group>
+            <h2 id={`term-group-${group.id}`} class="deco-heading mb-4 text-2xl">
+              {group.label}
+            </h2>
+            <div class="grid gap-4">
+              {group.terms.map((term) => {
+                const sources = givenBy(term.id);
+                const search = [term.data.name, ...term.data.aliases, term.data.th].join(' ').toLocaleLowerCase();
+                return (
+                  <article
+                    id={`term-${term.id}`}
+                    aria-labelledby={`term-name-${term.id}`}
+                    class:list={['card deco-card bg-base-200', { 'border-secondary': term.data.overview }]}
+                    data-term
+                    data-search={search}
+                  >
+                    <div class="card-body gap-3 p-5">
+                      <div>
+                        {term.data.overview && <p class="text-xs tracking-wide">ภาพรวม</p>}
+                        <h3 id={`term-name-${term.id}`} class="card-title font-display text-2xl">
+                          {term.data.name}
+                        </h3>
+                        {term.data.aliases.length > 0 && <p class="text-sm">หรือ {term.data.aliases.join(' / ')}</p>}
+                      </div>
+                      <p class="text-lg font-semibold">{term.data.th}</p>
+                      <p>{term.data.explanation.th}</p>
+                      {term.data.siteNote && (
+                        <aside role="note" aria-label="เว็บนี้เขียนเพิ่ม" class="border-l-4 border-secondary bg-base-100 px-4 py-2 text-sm">
+                          <strong class="font-semibold text-secondary">เว็บนี้เขียนเพิ่ม:</strong> {term.data.siteNote}
+                        </aside>
+                      )}
+                      {sources.length > 0 && (
+                        <div class="text-sm">
+                          <p class="mb-2 font-semibold">Item ที่ให้ค่านี้</p>
+                          <ul aria-label="Item ที่ให้ค่านี้" class="flex flex-wrap gap-2">
+                            {sources.map(({ item, stat }) => (
+                              <li>
+                                <a
+                                  href={itemPath(item.data.category, item.id)}
+                                  class="badge h-auto border-base-300 bg-base-100 py-1 hover:underline"
+                                >
+                                  {item.data.name}
+                                  <span class="font-mono text-xs">({formatStat(stat)})</span>
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      <p class="text-sm">
+                        ที่มา:{' '}
+                        <a href={term.data.source.url} class="badge badge-sm border-base-300 bg-base-100 text-secondary hover:underline">
+                          deadlock.wiki
+                        </a>
+                        {term.data.source.oldid && <span class="ml-1">ฉบับแก้ไข oldid={term.data.source.oldid}</span>}
+                      </p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</SiteLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-term-search]');
+  const empty = document.querySelector<HTMLElement>('[data-term-empty]');
+
+  if (form && empty) {
+    const input = form.querySelector('input')!;
+    const groups = [...document.querySelectorAll<HTMLElement>('[data-term-group]')];
+
+    const apply = () => {
+      const query = input.value.trim().toLocaleLowerCase();
+      let total = 0;
+      for (const group of groups) {
+        let visible = 0;
+        for (const term of group.querySelectorAll<HTMLElement>('[data-term]')) {
+          term.hidden = query !== '' && !(term.dataset.search ?? '').includes(query);
+          if (!term.hidden) visible++;
+        }
+        group.hidden = visible === 0;
+        total += visible;
+      }
+      empty.hidden = total > 0;
+    };
+
+    form.addEventListener('input', apply);
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.hidden = false;
+    apply();
+  }
+</script>

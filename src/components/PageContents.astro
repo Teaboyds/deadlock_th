@@ -1,7 +1,7 @@
 ---
 interface Props {
   /** In-page shortcuts, in the order the sections appear. */
-  items: { href: string; label: string }[];
+  items: { href: string; label: string; /** A sub-entry, indented under the one before it. */ nested?: boolean }[];
 }
 
 const { items } = Astro.props;
@@ -17,7 +17,10 @@ const { items } = Astro.props;
         <li>
           <a
             href={item.href}
-            class="inline-block border border-base-300 px-3 py-1 text-sm hover:bg-base-200 wide:-ml-px wide:block wide:border-0 wide:border-l-2 wide:border-transparent wide:px-3.5 wide:py-1.5 wide:text-secondary wide:hover:bg-transparent wide:hover:text-base-content wide:aria-[current=location]:border-secondary wide:aria-[current=location]:text-base-content"
+            class:list={[
+              { 'wide:pl-7': item.nested },
+              'inline-block border border-base-300 px-3 py-1 text-sm hover:bg-base-200 wide:-ml-px wide:block wide:border-0 wide:border-l-2 wide:border-transparent wide:px-3.5 wide:py-1.5 wide:text-secondary wide:hover:bg-transparent wide:hover:text-base-content wide:aria-[current=location]:border-secondary wide:aria-[current=location]:text-base-content',
+            ]}
           >
             {item.label}
           </a>
@@ -28,7 +31,7 @@ const { items } = Astro.props;
 </nav>
 
 <script>
-  // Highlight the section being read, and disable links whose section the command filter has hidden.
+  // Highlight the section being read, and disable links whose section a search or filter has hidden.
   const READ_LINE_PX = 140;
 
   for (const nav of document.querySelectorAll<HTMLElement>('.page-contents')) {

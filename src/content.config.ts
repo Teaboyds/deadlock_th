@@ -3,6 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { commandGroupIds } from './data/command-groups';
 import { itemCategories } from './data/item-categories';
+import { termGroupIds } from './data/term-groups';
 import { sourceIds } from './data/sources';
 import { strictYamlLoader } from './lib/strict-yaml-loader';
 
@@ -135,4 +136,27 @@ const items = defineCollection({
     }),
 });
 
-export const collections = { commands, guides, items };
+// One entry per Glossary term, keyed by a slug id. Explanations only, no formulas.
+const terms = defineCollection({
+  loader: strictYamlLoader('src/content/terms.yaml'),
+  schema: z
+    .object({
+      /** The stat label shown on items in the shop. */
+      name: z.string().min(1),
+      /** Other names the wiki or players use; shown under the name and searchable. */
+      aliases: z.array(z.string().min(1)).default([]),
+      group: z.enum(termGroupIds),
+      /** An overview that introduces its group, shown first. */
+      overview: z.boolean().default(false),
+      /** One-line Thai meaning. */
+      th: z.string().min(1),
+      explanation: z.object(thEn).strict(),
+      source: z.object({ url: z.url(), oldid: z.number().int().optional() }).strict(),
+      /** Advice the site adds itself; shown apart from the translation. */
+      siteNote: z.string().min(1).optional(),
+      needsReview: z.boolean().default(false),
+    })
+    .strict(),
+});
+
+export const collections = { commands, guides, items, terms };

@@ -3,7 +3,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import SiteLayout from '../../../layouts/SiteLayout.astro';
 import ItemIcon from '../../../components/ItemIcon.astro';
 import { categorySlug, itemPath } from '../../../data/item-categories';
-import { formatStat, tierLabel } from '../../../lib/item-format';
+import { formatStatValue, tierLabel } from '../../../lib/item-format';
+import StatLabel from '../../../components/StatLabel.astro';
 
 export async function getStaticPaths() {
   const items = await getCollection('items');
@@ -46,7 +47,13 @@ const buildsInto = data.componentOf.map((name) => {
       </div>
 
       <ul class="space-y-1 font-mono">
-        {data.stats.map((stat) => <li>{formatStat(stat)}</li>)}
+        {
+          data.stats.map((stat) => (
+            <li>
+              {formatStatValue(stat)} <StatLabel label={stat.label} />
+            </li>
+          ))
+        }
       </ul>
 
       {
@@ -60,7 +67,7 @@ const buildsInto = data.componentOf.map((name) => {
             <ul class="space-y-1 font-mono text-sm">
               {data.passive.stats.map((stat) => (
                 <li>
-                  {formatStat(stat)}
+                  {formatStatValue(stat)} <StatLabel label={stat.label} />
                   {stat.condition && <span class="ml-2 font-sans text-secondary">({stat.condition})</span>}
                 </li>
               ))}

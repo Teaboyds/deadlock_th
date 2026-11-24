@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import { termForLabel, termHref } from '../lib/terms';
+
+interface Props {
+  /** A stat label as shown in the shop, e.g. "Fire Rate". */
+  label: string;
+}
+
+const { label } = Astro.props;
+const term = termForLabel(label, await getCollection('terms'));
+---
+
+{
+  term ? (
+    <a href={termHref(term.id)} class="underline decoration-dotted underline-offset-4 hover:decoration-solid">
+      {label}
+    </a>
+  ) : (
+    label
+  )
+}

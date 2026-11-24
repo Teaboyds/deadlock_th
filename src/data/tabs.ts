@@ -31,4 +31,11 @@ export const tabs: Tab[] = [
     description: 'คำสั่ง console ของ Deadlock แปลไทย พร้อมวิธีใช้ฝึกซ้อม',
     status: 'ready',
   },
+  {
+    id: 'glossary',
+    label: 'Glossary',
+    href: '/glossary',
+    description: 'ศัพท์พื้นฐานในเกม เช่น Fire Rate และ Bullet Resist อธิบายเป็นภาษาไทย',
+    status: 'ready',
+  },
 ];

@@ -1,0 +1,129 @@
+# Glossary terms. Key = slug id. The name is the stat label shown on items in the shop.
+# Source: deadlock.wiki pages fetched 2026-11-24 via /agent-wiki (see .scratch/glossary/spec.md).
+# Explanations only: formulas and calculations are left out for now.
+
+# --- อาวุธ (weapon) ---
+
+weapon-damage:
+  name: Weapon Damage
+  group: weapon
+  th: ดาเมจจากอาวุธ ทั้งกระสุนและการตีระยะประชิด
+  explanation:
+    th: ค่าที่กำหนดดาเมจของกระสุน (Bullet Damage) และเพิ่มดาเมจการตีระยะประชิด (Melee) ด้วย โดย Melee ได้ผลจาก Weapon Damage แค่ครึ่งเดียว สกิลบางอย่างก็ทำดาเมจแบบ Weapon Damage ได้ และ Item หมวด Weapon ทุกชิ้นจะเพิ่ม Weapon Damage ให้อัตโนมัติตามจำนวน souls ที่ลงในหมวดนี้
+    en: Weapon Damage is a stat that determines the player's Bullet Damage, and also increases their Melee Damage. Some abilities can deal Weapon Damage. Melee Damage is considered a source of Weapon Damage and scales with the Weapon Damage stat by 50%. All weapon items provide an automatic increase in Weapon Damage based on the player's total soul investment in that category.
+  source:
+    url: https://deadlock.wiki/Weapon_Damage
+    oldid: 244308
+
+fire-rate:
+  name: Fire Rate
+  aliases: [Bullets Per Second]
+  group: weapon
+  th: จำนวนกระสุนที่ยิงออกไปต่อวินาที
+  explanation:
+    th: ยิ่งสูงยิ่งยิงรัว Hero บางตัวมีสกิลที่เพิ่มค่านี้ และศัตรูก็ลดค่านี้ของเราได้ ส่วนใหญ่ผ่าน Item ของเขา แต่ลดได้ไม่เกิน 50% ตัวเลขที่เกมแสดงคือ % ที่เปลี่ยน ไม่ใช่จำนวนนัดต่อวินาทีที่เปลี่ยนจริง
+    en: Fire Rate, also known as Bullets Per Second, is a stat that determines the amount of ammo that will be fired by the weapon per second. Several heroes have abilities that increase their Fire Rate to shoot faster, and it can also be decreased, primarily through enemy items. Any total modifier lower than -50% is capped at that value. The in-game UI reports the total modifier itself, not the resulting change in bullets per second.
+  source:
+    url: https://deadlock.wiki/Fire_Rate
+
+bullet-velocity:
+  name: Bullet Velocity
+  group: weapon
+  th: ความเร็วที่กระสุนพุ่งออกไป
+  explanation:
+    th: บอกว่ากระสุนหรือ projectile จากอาวุธหลักพุ่งไปเร็วแค่ไหน วัดเป็นเมตรต่อวินาที (m/s) แต่ละ Hero มีค่าเริ่มต้นไม่เท่ากัน
+    en: Bullet Velocity is a stat that dictates how fast bullets or projectiles fired from the primary weapon will travel in meters per second (m/s). (The page lists a different Base Bullet Velocity for each hero.)
+  source:
+    url: https://deadlock.wiki/Bullet_Velocity
+    oldid: 68957
+
+max-ammo:
+  name: Max Ammo
+  aliases: [Ammo, Clip Size]
+  group: weapon
+  th: จำนวนกระสุนสูงสุดในหนึ่งแม็ก
+  explanation:
+    th: จำนวนกระสุนที่ยิงได้ก่อนต้องรีโหลด ยิงไปจนเหลือ 0 จะยิงไม่ได้จนกว่าจะรีโหลด ดูได้จากตัวเลขใต้แถบ stamina ตัวซ้ายคือกระสุนที่เหลือ ตัวขวาคือจำนวนเต็มแม็ก
+    en: Ammo, also known as Clip Size, is a stat that dictates the maximum number of rounds that can be stored and fired from a weapon. As the weapon is fired, the number of available rounds decreases from the maximum to zero, at which point no more rounds can be fired. Weapons can be reloaded to regain rounds up to the maximum. Ammo is displayed as a number under the stamina bars. The left number is the current ammo count, and the right number is the full magazine capacity.
+  source:
+    url: https://deadlock.wiki/Ammo
+    oldid: 244443
+
+head-shot-bonus-damage:
+  name: Head Shot Bonus Damage
+  group: weapon
+  th: ดาเมจที่บวกเพิ่มเมื่อยิงโดนหัว
+  explanation:
+    th: ยิงโดนหัว (จุดอ่อน) ของ Trooper, Neutral, Lane Guardian และ Hero ทำดาเมจแรงกว่าปกติอยู่แล้ว ค่านี้คือดาเมจที่บวกเพิ่มเป็นตัวเลขตรง ๆ ตอนยิงหัว เช่น Headshot Booster ให้ +45
+    en: Aiming for the head deals increased damage. Troopers, Neutrals, Lane Guardians and Heroes have a weakpoint hitbox that receives 1.65x bullet damage when hit. Headshot Booster deals +45 bonus Weapon Damage with headshots. (The wiki has no page of its own for this stat; the text comes from the Weapon Damage page.)
+  source:
+    url: https://deadlock.wiki/Weapon_Damage
+    oldid: 244308
+
+# --- ป้องกัน (defence) ---
+
+damage-resistance:
+  name: Damage Resistance
+  overview: true
+  group: defence
+  th: ค่าที่ลดดาเมจที่เราโดน แยกเป็น Bullet, Spirit และ Melee Resist
+  explanation:
+    th: Bullet Resist ลดดาเมจจากอาวุธและการตี Spirit Resist ลดดาเมจแบบ spirit ส่วน Melee Resist ลดเฉพาะดาเมจการตีระยะประชิด Resist จากหลายแหล่งไม่ได้บวกกันตรง ๆ เลยได้น้อยกว่าที่เห็นบน Item รวมกัน ศัตรูลด Resist ของเราได้ (เรียกว่า shred) และถ้าโดนลดจนติดลบ เราจะโดนดาเมจแรงขึ้น
+    en: Damage Resistance refers to the Bullet, Melee, and Spirit Resist statistics which reduce incoming damage taken. Bullet Resist reduces all weapon and melee damage, Melee Resist reduces only melee damage, while Spirit Resist reduces all spirit damage. Most resistances stack multiplicatively; they are not added together. Resistance Reduction (often called "shred") acts as a counter to resistance. If the Total Reduction is higher than the Total Resistance, the final value will be negative. This acts as a damage amplifier.
+  source:
+    url: https://deadlock.wiki/Damage_Resistance
+
+bullet-resist:
+  name: Bullet Resist
+  group: defence
+  th: ลดดาเมจจากอาวุธที่เราโดน
+  explanation:
+    th: ลดดาเมจแบบ Weapon Damage ทุกอย่างที่เข้ามา รวมถึงจากสกิล และช่วยลดดาเมจการตีด้วย Trooper, Guardian, Haunt และ Mid-Boss ก็ทำดาเมจแบบอาวุธ
+    en: Bullet Resist reduces all incoming Weapon Damage, including from abilities. Troopers, Guardians, Haunts, and the Mid-Boss deal weapon damage. (Overview on the same page — Bullet Resist reduces all weapon and melee damage.)
+  source:
+    url: https://deadlock.wiki/Damage_Resistance
+
+spirit-resist:
+  name: Spirit Resist
+  group: defence
+  th: ลดดาเมจแบบ spirit ที่เราโดน
+  explanation:
+    th: ลดดาเมจแบบ Spirit Damage ทุกอย่างที่เข้ามา สกิลและ Item ส่วนใหญ่ทำดาเมจแบบ spirit รวมถึง Walker, Shrine และ Patron ด้วย
+    en: Spirit Resist reduces all incoming Spirit Damage. Most abilities and items deal spirit damage, as well as Walkers, Shrines, and the Patron.
+  source:
+    url: https://deadlock.wiki/Damage_Resistance
+
+melee-resist:
+  name: Melee Resist
+  group: defence
+  th: ลดดาเมจการตีระยะประชิดที่เราโดน
+  explanation:
+    th: ลดดาเมจแบบ Melee ทุกอย่างที่เข้ามา รวมถึงจากสกิล นอกจากนี้ Bullet Resist ก็ช่วยลดดาเมจการตีได้อีกทาง
+    en: Melee Resist reduces all incoming Melee Damage, including from abilities. In addition to Melee Resist gained from items, Bullet Resist affects all Weapon Damage, granting another source of resistance against Melee Damage.
+  source:
+    url: https://deadlock.wiki/Damage_Resistance
+
+# --- เลือดและฟื้นฟู (health) ---
+
+bonus-health:
+  name: Bonus Health
+  aliases: [Bonus HP]
+  group: health
+  th: เลือดสูงสุดที่บวกเพิ่มเป็นตัวเลขตรง ๆ
+  explanation:
+    th: เลือดที่เพิ่มเป็นตัวเลขคงที่ ได้จาก Item ทั้ง 3 หมวด (หมวด Vitality ให้เยอะสุด) จาก Golden Statue และจาก Survival Powerup ค่านี้บวกทีหลัง จึงไม่ได้ขยายตาม % เลือดที่ได้จาก Item หมวด Vitality
+    en: Bonus HP is flat health added from items, map pickups, and other sources, applied after the Vitality multiplier. Items are the most common source of added bonus health. Bonus health can be found on all three item types, but Vitality items tend to provide the largest amounts. Golden statues occasionally drop small but permanent added bonus health buffs. The Survival Powerup immediately grants bonus health, but only for 160 seconds or until death. Bonus Health is not scaled by increased base health.
+  source:
+    url: https://deadlock.wiki/Health
+
+out-of-combat-regen:
+  name: Out of Combat Regen
+  aliases: [Out of Combat Health Regen]
+  group: health
+  th: เลือดที่ฟื้นเพิ่มทุกวินาทีตอนไม่ได้สู้
+  explanation:
+    th: Health Regen คือเลือดที่ฟื้นเองทุกวินาที ค่านี้ให้ฟื้นเพิ่มเฉพาะตอนที่ Hero ไม่ได้อยู่ในการต่อสู้ ตอนตายเลือดจะไม่ฟื้น และการยืนในฐานจะฟื้นเลือดเร็วมาก
+    en: Out of Combat Health Regen is a stat that provides additional health regen when a hero is out of combat. Health Regen is a stat that heroes start with and can obtain more through items. Per second, heroes will regenerate their amount of health regeneration as health. While dead, players will not be able to regenerate health. Standing in base will quickly regenerate the player's health.
+  source:
+    url: https://deadlock.wiki/Health_Regen
+    oldid: 218407

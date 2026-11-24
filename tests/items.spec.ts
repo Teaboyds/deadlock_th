@@ -59,7 +59,7 @@ test('an item page shows cost, stats, passive, what it builds into and its wiki 
     'href',
     'https://deadlock.wiki/Close_Quarters',
   );
-  await main.getByRole('link', { name: 'Weapon' }).click();
+  await page.getByRole('navigation', { name: 'breadcrumb' }).getByRole('link', { name: 'Weapon' }).click();
   await expect(page).toHaveURL(/\/items\/weapon\/?$/);
 });
 
