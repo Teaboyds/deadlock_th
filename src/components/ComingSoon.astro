@@ -1,0 +1,22 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { tabs } from '../data/tabs';
+
+interface Props {
+  /** Id of the coming-soon tab this page stands in for. */
+  tabId: string;
+}
+
+const tab = tabs.find((t) => t.id === Astro.props.tabId)!;
+---
+
+<SiteLayout title={tab.label} currentTab={tab.id}>
+  <section class="hero py-16">
+    <div class="hero-content max-w-xl flex-col text-center">
+      <h1 class="deco-title text-5xl">{tab.label}</h1>
+      <span class="badge badge-outline badge-lg">Coming soon</span>
+      <p>{tab.description} กำลังทำอยู่ ระหว่างนี้ดูคำสั่ง console ไปก่อนได้</p>
+      <a href="/commands" class="btn btn-primary">ดูคำสั่ง console</a>
+    </div>
+  </section>
+</SiteLayout>

@@ -19,7 +19,7 @@ en: |
 
 Console command ใช้ปรับการตั้งค่าเกมเพลย์ ถ้าเปิดตัวเลือก "Dev command console" ในการตั้งค่าไว้ กด **F7** เพื่อเปิด developer console แล้วพิมพ์คำสั่งได้
 
-ใช้ได้ในโหมด Hideout, Sandbox และ "Explore NYC" รวมถึง custom game ที่เปิด cheat ไว้ (ยกเว้นคำสั่งฝั่งเซิร์ฟเวอร์ ซึ่งใช้ได้เฉพาะใน custom server)
+ใช้ได้ในโหมด **Hideout**, **Sandbox** และ **"Explore NYC"** รวมถึง custom game ที่เปิด cheat ไว้ (ยกเว้นคำสั่งฝั่งเซิร์ฟเวอร์ ซึ่งใช้ได้เฉพาะใน custom server)
 
 รายการ console command และตัวแปรทั้งหมดดูได้ที่ [Valve Developer Wiki](https://developer.valvesoftware.com/wiki/List_of_Deadlock_console_commands_and_variables) ส่วนรายการตัวแปร console แบบไม่จัดรูปแบบดูได้ที่ [Data:Convars.json](https://deadlock.wiki/Data:Convars.json)
 

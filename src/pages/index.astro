@@ -1,21 +1,95 @@
 ---
+import { getCollection } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { commandGroups } from '../data/command-groups';
+import { sources } from '../data/sources';
 import { tabs } from '../data/tabs';
+
+const commands = await getCollection('commands');
+const namedSources = Object.values(sources).filter((s) => s.url !== null);
+
+const stats = [
+  { label: 'คำสั่ง', value: commands.length, desc: 'แปลไทยพร้อมปุ่ม copy' },
+  { label: 'กลุ่ม', value: commandGroups.length, desc: 'จัดตามจุดประสงค์การใช้' },
+  { label: 'แหล่งที่มา', value: namedSources.length, desc: namedSources.map((s) => s.label).join(' · ') },
+];
+
+const features = [
+  { title: 'ไทย สั้น อ่านง่าย', body: 'คำอธิบายคำสั่งละบรรทัดเดียว ศัพท์ในเกมคงภาษาอังกฤษให้ตรงกับที่เห็นในเกม' },
+  { title: 'ค้นหาแล้ว copy ได้ทันที', body: 'ค้นได้ทั้งชื่อคำสั่งและคำภาษาไทย กรองคำสั่ง cheat และ copy ไปวางใน console ได้เลย' },
+  { title: 'บอกที่มาทุกคำสั่ง', body: 'ทุกการ์ดบอกว่ามาจาก deadlock.wiki หรือ Valve Developer Wiki และบอกว่าทดสอบในเกมแล้วหรือยัง' },
+];
 ---
 
 <SiteLayout title="Deadlock TH">
-  <h1>Deadlock TH</h1>
-  <p>คู่มือ Deadlock ภาษาไทย สั้น อ่านง่าย</p>
-  <ul class="tab-cards">
-    {
-      tabs.map((tab) => (
-        <li>
-          <a href={tab.href}>
-            <h2>{tab.label}</h2>
-            <p>{tab.description}</p>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <section class="hero py-10 sm:py-16">
+    <div class="hero-content max-w-2xl flex-col text-center">
+      <p class="text-secondary">คู่มือ Deadlock ภาษาไทย</p>
+      <h1 class="deco-title text-5xl sm:text-6xl">Deadlock TH</h1>
+      <p class="text-lg">
+        รวมข้อมูล Deadlock แปลไทยแบบสั้น อ่านง่าย ใช้เปิดดูระหว่างเล่นเพื่อฝึกซ้อมและเก่งขึ้น
+      </p>
+      <div class="mt-2 flex flex-wrap justify-center gap-3">
+        <a href="/commands" class="btn btn-primary">ดูคำสั่ง console</a>
+        <a href="#tabs" class="btn btn-outline">ดูแท็บทั้งหมด</a>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="สรุป" class="mb-12">
+    <div class="stats deco-card stats-vertical w-full bg-base-200 sm:stats-horizontal">
+      {
+        stats.map((stat) => (
+          <div class="stat place-items-center" role="group" aria-label={stat.label}>
+            <div class="stat-title text-base-content">{stat.label}</div>
+            <div class="stat-value font-display">{stat.value}</div>
+            <div class="stat-desc text-base-content">{stat.desc}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="tabs" aria-label="แท็บทั้งหมด" class="mb-12">
+    <h2 class="deco-heading mb-6 text-2xl">แท็บ</h2>
+    <ul class="tab-cards grid gap-4 sm:grid-cols-3">
+      {
+        tabs.map((tab) => (
+          <li>
+            <a
+              href={tab.href}
+              class:list={[
+                'card deco-card h-full bg-base-200 transition-colors hover:bg-base-300',
+                { 'opacity-80': tab.status === 'coming-soon' },
+              ]}
+            >
+              <div class="card-body">
+                <h3 class="card-title text-2xl">{tab.label}</h3>
+                <p>{tab.description}</p>
+                {tab.status === 'coming-soon' && (
+                  <div class="card-actions">
+                    <span class="badge badge-outline">Coming soon</span>
+                  </div>
+                )}
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section aria-labelledby="features-heading">
+    <h2 id="features-heading" class="deco-heading mb-6 text-2xl">ทำไมต้องเว็บนี้</h2>
+    <div class="grid gap-4 sm:grid-cols-3">
+      {
+        features.map((feature) => (
+          <div class="border-l-2 border-secondary pl-4">
+            <h3 class="mb-2 font-sans text-lg font-semibold">{feature.title}</h3>
+            <p class="text-sm">{feature.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
 </SiteLayout>

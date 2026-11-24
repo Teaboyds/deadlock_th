@@ -29,19 +29,27 @@ const rendered = await Promise.all(
 
 {
   rendered.map(({ guide, Content, children }) => (
-    <section class="guide" aria-labelledby={`guide-${guide.id}`} data-guide={guide.id}>
-      <Heading id={`guide-${guide.id}`}>{guide.data.title}</Heading>
+    <section class="guide mt-10" aria-labelledby={`guide-${guide.id}`} data-guide={guide.id}>
+      <Heading id={`guide-${guide.id}`} class:list={[level === 2 ? 'deco-heading text-2xl' : 'text-xl', 'mb-4']}>
+        {guide.data.title}
+      </Heading>
       {guide.data.source !== 'deadlock-wiki' && (
-        <p class="source">
-          ที่มา: <span class="badge badge-source">{sources[guide.data.source].label}</span>
-          {guide.data.untested && <span class="badge badge-untested">ยังไม่ได้ทดสอบ</span>}
+        <p class="mb-3 flex flex-wrap items-center gap-2 text-sm">
+          ที่มา: <span class="badge badge-sm border-base-300 bg-base-100 text-secondary">{sources[guide.data.source].label}</span>
+          {guide.data.untested && <span class="badge badge-outline badge-sm border-dashed font-semibold">ยังไม่ได้ทดสอบ</span>}
         </p>
       )}
-      <Content />
+      <div class="prose max-w-none">
+        <Content />
+      </div>
       {children.map((child) => (
-        <section class="guide" aria-labelledby={`guide-${child.guide.id}`} data-guide={child.guide.id}>
-          <SubHeading id={`guide-${child.guide.id}`}>{child.guide.data.title}</SubHeading>
-          <child.Content />
+        <section class="guide mt-8" aria-labelledby={`guide-${child.guide.id}`} data-guide={child.guide.id}>
+          <SubHeading id={`guide-${child.guide.id}`} class="mb-3 text-xl">
+            {child.guide.data.title}
+          </SubHeading>
+          <div class="prose max-w-none">
+            <child.Content />
+          </div>
         </section>
       ))}
     </section>
@@ -55,7 +63,7 @@ const rendered = await Promise.all(
     const text = code.textContent ?? '';
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'copy-button';
+    button.className = 'copy-button btn btn-outline btn-xs border-base-300 font-normal align-middle';
     button.dataset.copy = text;
     button.setAttribute('aria-label', `คัดลอก ${text}`);
     const label = document.createElement('span');

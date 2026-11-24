@@ -8,7 +8,7 @@ I play Deadlock and want to get better at it. The developer console has commands
 
 ## Solution
 
-Build a static, client-side-only website. The site is organised into **tabs**: Commands, Items, Heroes and Patch notes. This spec delivers the site shell (home page, tab menu, site-wide theme) and the first tab, Commands, which is a single Thai page about Deadlock console commands. The page covers:
+Build a static, client-side-only website. The site is organised into **tabs**: Commands, Items and Heroes (Patch notes was dropped for now). This spec delivers the site shell (home page, tab menu, site-wide theme) and the first tab, Commands, which is a single Thai page about Deadlock console commands. The page covers:
 
 - the whole deadlock.wiki Console commands page, which is the primary **source**
 - extra material from the Valve Developer Wiki command list, which is the secondary **source**: binds, autoexec-style settings, and up to about 10 extra practice commands
@@ -66,7 +66,7 @@ Everything that doesn't come from the primary source is marked **untested** unti
 36. As a reader, I want a home page that lists the site's tabs as cards, so that I can see what the site covers and jump in.
 37. As a reader, I want a tab menu on every page, so that I can move between tabs once more exist.
 38. As a reader, I want the menu to show only tabs that have real content, so that I never land on an empty placeholder.
-39. As the maintainer, I want the layout, menu and theme shared by every tab, so that adding Items, Heroes or Patch notes later means adding a page and a menu entry, not reworking the site.
+39. As the maintainer, I want the layout, menu and theme shared by every tab, so that filling in Items or Heroes later means adding a page and a menu entry, not reworking the site.
 40. As a future visitor, I want the site to contain no official logos or game art, so that it can be published without asset-licensing problems.
 
 ## Implementation Decisions
@@ -75,8 +75,8 @@ Everything that doesn't come from the primary source is marked **untested** unti
 - **Multi-tab site shell:**
   - one shared layout holds the site title, the tab menu and the theme, and every page uses it
   - each tab has its own URL; Commands lives at `/commands`
-  - the tab list is defined in one place, and the menu shows only tabs that have a page (only Commands for now)
-  - the home page (`/`) shows the site name and one card per available tab, instead of redirecting
+  - the tab list is defined in one place; the menu shows every tab, and Items and Heroes show a "Coming soon" page until they have content (changed after ticket 06; the menu first showed only tabs with content)
+  - the home page (`/`) is a landing page: a hero with a link to Commands, counts taken from the content at build time (commands, command groups, sources), one card per tab (coming-soon tabs say so), three reasons to use the site, and a site footer saying it is fan-made and not affiliated with Valve
   - the theme is site-wide, not specific to Commands
   - the site header is a full-width header bar that sticks to the top while scrolling: site name on the left, tabs on the right; on narrow screens the tabs scroll sideways instead of collapsing into a menu (decided after ticket 06)
 - **Content is data, separate from UI.** Commands live in a typed content collection with a schema that is enforced at build time. Each command entry has:
@@ -124,6 +124,7 @@ Everything that doesn't come from the primary source is marked **untested** unti
   | Cream | `#efdebf` | primary text and headings |
 
   The cheat badge is inverted (Charcoal on Cream). No other colours are added. Art-deco frames, corners and rules are CSS-only, with a faint noise texture.
+- **Styling (changed after ticket 06):** Tailwind CSS with daisyUI on every page. A custom daisyUI theme, `deadlock`, maps the five-colour palette onto daisyUI's colour roles, with square corners and no shadows. The art-deco pieces are small custom component classes, and guide text uses the Tailwind typography plugin.
 - **Fonts (Google Fonts):** a decorative art-deco face for Latin headings, Noto Serif Thai for Thai headings, Anuphan for body text, and JetBrains Mono for command names.
 - **No official assets:** no logos, hero art or icons from the game, deadlock.wiki or Valve.
 - **Source files:** the saved Valve Developer Wiki page is kept in the source folder and renamed from its browser-given name to a descriptive one (`vdc-deadlock-commands`), so it can't be confused with the project glossary.
@@ -142,7 +143,8 @@ Everything that doesn't come from the primary source is marked **untested** unti
   - the copy button puts the exact command text on the clipboard
   - cheat badges, source badges and untested markers appear on the right cards, checked against known entries (e.g. `citadel_ability_cooldown_max` is a cheat command; a Valve-sourced command is untested)
   - all six command groups render
-  - the home page shows a card for the Commands tab that links to it
+  - the landing page links to Commands, its command count matches the Commands page, it has a card per tab with coming-soon tabs marked, and its footer mentions Valve
+  - the Items and Heroes pages say they are coming soon
   - the tab menu appears on every page, lists only Commands, and marks the current tab
   - the prose sections render
   - the footer lists both sources with their revisions
@@ -151,7 +153,7 @@ Everything that doesn't come from the primary source is marked **untested** unti
 
 ## Out of Scope
 
-- The Items, Heroes and Patch notes tabs. These are planned future tabs; this spec only makes sure the shell can take them.
+- Content for the Items and Heroes tabs; they only have coming-soon pages. Patch notes is dropped for now.
 - A bind builder tool (pick a key plus a command to generate a line).
 - Light mode and a theme switcher.
 - A toggle to show the English original on the page (the original is stored, not displayed).

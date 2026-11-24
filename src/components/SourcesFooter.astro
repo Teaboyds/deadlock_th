@@ -4,16 +4,22 @@ import { sources, translatedOn } from '../data/sources';
 const listed = [sources['deadlock-wiki'], sources['valve-dev-wiki']];
 ---
 
-<footer class="sources-footer">
-  <h2>ที่มา</h2>
-  <ul>
+<footer class="sources-footer mt-12 border-t border-base-300 pt-6 text-sm">
+  <h2 class="mb-3 text-xl">ที่มา</h2>
+  <ul class="space-y-1">
     {
       listed.map((source) => (
         <li>
-          <a href={source.url}>{source.label}</a> · ฉบับแก้ไข <a href={source.revisionUrl}>{source.revision}</a>
+          <a class="link" href={source.url}>
+            {source.label}
+          </a>{' '}
+          · ฉบับแก้ไข{' '}
+          <a class="link" href={source.revisionUrl}>
+            {source.revision}
+          </a>
         </li>
       ))
     }
   </ul>
-  <p>แปลเมื่อ <time datetime={translatedOn}>{translatedOn}</time></p>
+  <p class="mt-2 text-secondary">แปลเมื่อ <time datetime={translatedOn}>{translatedOn}</time></p>
 </footer>

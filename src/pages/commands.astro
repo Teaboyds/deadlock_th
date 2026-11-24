@@ -28,21 +28,23 @@ const contents = [
 ---
 
 <SiteLayout title="Commands" currentTab="commands" wide>
-  <h1>Console commands</h1>
-  <div class="with-sidebar">
+  <h1 class="deco-title mb-8 text-center text-4xl sm:text-5xl">Console commands</h1>
+  <div class="items-start wide:grid wide:grid-cols-[var(--sidebar)_minmax(0,1fr)] wide:gap-x-(--sidebar-gap)">
     <PageContents items={contents} />
-    <div class="page-body">
+    <div class="min-w-0">
       <GuideSections placement="before-commands" />
       <CommandFilter />
       {
         groups.map((group) => (
-          <section aria-labelledby={`group-${group.id}`} data-command-group={group.id}>
-            <h2 id={`group-${group.id}`}>{group.label}</h2>
+          <section class="mt-10" aria-labelledby={`group-${group.id}`} data-command-group={group.id}>
+            <h2 id={`group-${group.id}`} class="deco-heading mb-4 text-2xl">
+              {group.label}
+            </h2>
             {group.id === 'binds' && <GuideSections placement="binds" level={3} />}
             {group.commands.length > 0 ? (
               group.commands.map((command) => <CommandCard command={command} />)
             ) : (
-              <p class="group-empty">ยังไม่มีคำสั่งในกลุ่มนี้</p>
+              <p class="text-secondary">ยังไม่มีคำสั่งในกลุ่มนี้</p>
             )}
           </section>
         ))

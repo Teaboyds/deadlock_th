@@ -14,46 +14,54 @@ const headingId = `cmd-${name.replace(/[^A-Za-z0-9_-]+/g, '-')}`;
 
 <article
   aria-labelledby={headingId}
-  class="command-card"
+  class="command-card card deco-card mb-4 bg-base-200"
   data-command-card
   data-name={name}
   data-th={data.th}
   data-cheat={String(data.cheat)}
 >
-  <h3 id={headingId}><code>{name}</code></h3>
-  <CopyButton text={name} />
-  {data.cheat && <span class="badge badge-cheat">ต้องเปิด cheats</span>}
-  {data.untested && <span class="badge badge-untested">ยังไม่ได้ทดสอบ</span>}
-  {
-    (data.values.length > 0 || data.default) && (
-      <dl class="command-values">
-        {data.values.length > 0 && (
-          <>
-            <dt>ค่าที่ใส่ได้</dt>
-            <dd>{data.values.join(' · ')}</dd>
-          </>
-        )}
-        {data.default && (
-          <>
-            <dt>ค่าเริ่มต้น</dt>
-            <dd>{data.default}</dd>
-          </>
-        )}
-      </dl>
-    )
-  }
-  <p class="command-th">{data.th}</p>
-  {
-    data.practice && (
-      <aside role="note" aria-label="ใช้ฝึกอะไร" class="practice-note">
-        <strong>ใช้ฝึกอะไร:</strong> {data.practice}
-      </aside>
-    )
-  }
-  {
-    data.noReleaseFlag && (
-      <p class="release-warning">Valve ไม่ได้ติด flag release ให้คำสั่งนี้ จึงอาจใช้ไม่ได้ในเกมปกติ</p>
-    )
-  }
-  <p class="source">ที่มา: <span class="badge badge-source">{sources[data.source].label}</span></p>
+  <div class="card-body gap-3 p-5">
+    <h3 id={headingId} class="card-title font-mono text-lg"><code>{name}</code></h3>
+    <div class="flex flex-wrap items-center gap-2">
+      <CopyButton text={name} />
+      {data.cheat && <span class="badge badge-primary badge-sm font-semibold">ต้องเปิด cheats</span>}
+      {data.untested && <span class="badge badge-outline badge-sm border-dashed font-semibold">ยังไม่ได้ทดสอบ</span>}
+    </div>
+    {
+      (data.values.length > 0 || data.default) && (
+        <dl class="grid grid-cols-[auto_1fr] gap-x-3 text-sm">
+          {data.values.length > 0 && (
+            <>
+              <dt class="font-semibold">ค่าที่ใส่ได้</dt>
+              <dd class="font-mono">{data.values.join(' · ')}</dd>
+            </>
+          )}
+          {data.default && (
+            <>
+              <dt class="font-semibold">ค่าเริ่มต้น</dt>
+              <dd class="font-mono">{data.default}</dd>
+            </>
+          )}
+        </dl>
+      )
+    }
+    <p class="text-base">{data.th}</p>
+    {
+      data.practice && (
+        <aside role="note" aria-label="ใช้ฝึกอะไร" class="border-l-4 border-secondary bg-base-100 px-4 py-2 text-sm">
+          <strong class="font-semibold text-secondary">ใช้ฝึกอะไร:</strong> {data.practice}
+        </aside>
+      )
+    }
+    {
+      data.noReleaseFlag && (
+        <p class="border border-dashed border-base-content px-3 py-1.5 text-sm">
+          Valve ไม่ได้ติด flag release ให้คำสั่งนี้ จึงอาจใช้ไม่ได้ในเกมปกติ
+        </p>
+      )
+    }
+    <p class="text-sm">
+      ที่มา: <span class="badge badge-sm border-base-300 bg-base-100 text-secondary">{sources[data.source].label}</span>
+    </p>
+  </div>
 </article>

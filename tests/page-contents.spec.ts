@@ -51,6 +51,16 @@ test.describe('on a wide screen', () => {
     await expect(contents.locator('[aria-current="location"]')).toHaveCount(1);
   });
 
+  test('the section being read looks different from the other links', async ({ page }) => {
+    await page.goto('/commands');
+    const contents = page.getByRole('navigation', { name: 'สารบัญ' });
+    await contents.getByRole('link', { name: 'Bind / ตั้งปุ่ม' }).click();
+    await page.mouse.move(0, 0);
+    const color = (name: string) =>
+      contents.getByRole('link', { name }).evaluate((el) => getComputedStyle(el).color);
+    expect(await color('Bind / ตั้งปุ่ม')).not.toBe(await color('ฝึกซ้อม'));
+  });
+
   test('links to command groups hidden by the search are disabled', async ({ page }) => {
     await page.goto('/commands');
     await page.getByRole('searchbox', { name: 'ค้นหาคำสั่ง' }).fill('bot_kick_all');

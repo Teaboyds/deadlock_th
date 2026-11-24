@@ -10,7 +10,13 @@ const { text, label = `คัดลอก ${text}` } = Astro.props;
 ---
 
 <!-- Hidden until the script runs, so readers without JavaScript don't see a dead button. -->
-<button type="button" class="copy-button" data-copy={text} aria-label={label} hidden>
+<button
+  type="button"
+  class="copy-button btn btn-outline btn-xs border-base-300 font-normal data-[copied=true]:btn-primary"
+  data-copy={text}
+  aria-label={label}
+  hidden
+>
   <span class="copy-button-text">คัดลอก</span>
 </button>
 

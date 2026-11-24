@@ -1,26 +1,35 @@
 import { expect, test } from '@playwright/test';
 
-test('home page shows a card for the Commands tab that links to it', async ({ page }) => {
-  await page.goto('/');
-  const card = page.getByRole('link', { name: /Commands/ }).and(page.locator('main a'));
-  await expect(card).toBeVisible();
-  await card.click();
-  await expect(page).toHaveURL(/\/commands\/?$/);
-});
+const tabs = [
+  { label: 'Heroes', path: '/heroes', comingSoon: true },
+  { label: 'Items', path: '/items', comingSoon: true },
+  { label: 'Commands', path: '/commands', comingSoon: false },
+];
 
-for (const path of ['/', '/commands']) {
-  test(`tab menu on ${path} lists only the Commands tab`, async ({ page }) => {
+for (const path of ['/', ...tabs.map((t) => t.path)]) {
+  test(`tab menu on ${path} lists every tab`, async ({ page }) => {
     await page.goto(path);
     const menu = page.getByRole('navigation', { name: 'แท็บ' });
-    await expect(menu.getByRole('link')).toHaveText(['Commands']);
+    await expect(menu.getByRole('link')).toHaveText(tabs.map((t) => t.label));
   });
 }
 
-test('tab menu marks Commands as the current tab on the Commands page', async ({ page }) => {
-  await page.goto('/commands');
-  const menu = page.getByRole('navigation', { name: 'แท็บ' });
-  await expect(menu.getByRole('link', { name: 'Commands' })).toHaveAttribute('aria-current', 'page');
-});
+for (const tab of tabs) {
+  test(`tab menu marks ${tab.label} as the current tab on its page`, async ({ page }) => {
+    await page.goto(tab.path);
+    const menu = page.getByRole('navigation', { name: 'แท็บ' });
+    await expect(menu.getByRole('link', { name: tab.label })).toHaveAttribute('aria-current', 'page');
+    await expect(menu.locator('[aria-current="page"]')).toHaveCount(1);
+  });
+}
+
+for (const tab of tabs.filter((t) => t.comingSoon)) {
+  test(`the ${tab.label} tab says it is coming soon`, async ({ page }) => {
+    await page.goto(tab.path);
+    await expect(page.getByRole('heading', { level: 1, name: tab.label })).toBeVisible();
+    await expect(page.getByRole('main').getByText('Coming soon')).toBeVisible();
+  });
+}
 
 test('the header bar stays at the top of the screen while scrolling', async ({ page }) => {
   await page.goto('/commands');

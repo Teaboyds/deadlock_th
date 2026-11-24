@@ -7,12 +7,20 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="สารบัญ" class="page-contents">
-  <ul>
+<nav aria-label="สารบัญ" class="page-contents mb-8 wide:mt-10 wide:mb-0">
+  <p class="mb-2 hidden text-xs tracking-[0.12em] text-secondary wide:block" aria-hidden="true">สารบัญ</p>
+  <ul
+    class="flex flex-wrap justify-center gap-2 wide:flex-col wide:flex-nowrap wide:justify-start wide:gap-0 wide:border-l wide:border-base-300"
+  >
     {
       items.map((item) => (
         <li>
-          <a href={item.href}>{item.label}</a>
+          <a
+            href={item.href}
+            class="inline-block border border-base-300 px-3 py-1 text-sm hover:bg-base-200 wide:-ml-px wide:block wide:border-0 wide:border-l-2 wide:border-transparent wide:px-3.5 wide:py-1.5 wide:text-secondary wide:hover:bg-transparent wide:hover:text-base-content wide:aria-[current=location]:border-secondary wide:aria-[current=location]:text-base-content"
+          >
+            {item.label}
+          </a>
         </li>
       ))
     }

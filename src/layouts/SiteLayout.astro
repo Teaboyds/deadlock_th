@@ -1,7 +1,7 @@
 ---
 import BackToTop from '../components/BackToTop.astro';
 import { tabs } from '../data/tabs';
-import '../styles/theme.css';
+import '../styles/global.css';
 
 interface Props {
   title: string;
@@ -16,7 +16,7 @@ const siteName = 'Deadlock TH';
 ---
 
 <!doctype html>
-<html lang="th">
+<html lang="th" data-theme="deadlock">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,16 +30,22 @@ const siteName = 'Deadlock TH';
       href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Limelight&family=Noto+Serif+Thai:wght@400;600&display=swap"
     />
   </head>
-  <body id="top" class:list={[{ 'page-wide': wide }]}>
-    <header class="site-header">
-      <div class="site-header-inner">
-        <a href="/" class="site-name">{siteName}</a>
-        <nav aria-label="แท็บ">
-          <ul>
+  <body id="top" class:list={['flex min-h-screen flex-col bg-base-100 font-sans text-base-content', { 'page-wide': wide }]}>
+    <!-- Full-width pine bar that stays at the top; pine keeps it apart from the slate cards under it. -->
+    <header class="sticky top-0 z-10 bg-base-300">
+      <div class="navbar mx-auto min-h-14 max-w-(--page-max) gap-6 px-4 py-0">
+        <a href="/" class="font-display flex-none text-xl tracking-wider">{siteName}</a>
+        <nav aria-label="แท็บ" class="ml-auto min-w-0">
+          <!-- Tabs stay on one row and scroll sideways when they don't fit (no hamburger). -->
+          <ul class="flex gap-5 overflow-x-auto [scrollbar-width:none]">
             {
               tabs.map((tab) => (
                 <li>
-                  <a href={tab.href} aria-current={tab.id === currentTab ? 'page' : undefined}>
+                  <a
+                    href={tab.href}
+                    aria-current={tab.id === currentTab ? 'page' : undefined}
+                    class="inline-block border-b-2 border-transparent py-1 text-sm tracking-[0.12em] whitespace-nowrap uppercase hover:border-secondary aria-[current=page]:border-base-content aria-[current=page]:font-semibold"
+                  >
                     {tab.label}
                   </a>
                 </li>
@@ -50,9 +56,14 @@ const siteName = 'Deadlock TH';
       </div>
       <span class="deco-rule" aria-hidden="true"></span>
     </header>
-    <main>
+    <main class="mx-auto w-full max-w-(--page-max) flex-1 px-4 pt-8 pb-12">
       <slot />
     </main>
+    <footer class="border-t border-base-300 px-4 py-6 text-center text-sm text-secondary">
+      <p>
+        {siteName} เป็นเว็บแฟนเมด ไม่มีส่วนเกี่ยวข้องกับ Valve · Deadlock เป็นเครื่องหมายการค้าของ Valve Corporation
+      </p>
+    </footer>
     <BackToTop />
   </body>
 </html>

@@ -4,13 +4,15 @@ A Thai guide to Deadlock: a static, client-side-only Astro site. Terms are defin
 
 ## Commands
 
+The project uses [Bun](https://bun.sh) as its package manager (`bun.lock`); don't use npm.
+
 ```sh
-npm install
-npx playwright install chromium   # first time only
-npm run dev       # dev server at http://localhost:4321
-npm run build     # static site in dist/ (fails on invalid content)
-npm test          # build, then run the Playwright tests against the built site
-npm run check     # TypeScript and Astro type check
+bun install
+bunx playwright install chromium   # first time only
+bun run dev       # dev server at http://localhost:4321
+bun run build     # static site in dist/ (fails on invalid content)
+bun run test      # build, then run the Playwright tests against the built site
+bun run check     # TypeScript and Astro type check
 ```
 
 ## Content

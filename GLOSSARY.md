@@ -7,16 +7,16 @@ A Thai-language guide to the game Deadlock, written to be short and easy to unde
 ### Site
 
 **Tab**:
-A top-level part of the site covering one subject: Commands, Items, Heroes, Patch notes. A tab appears in the site menu only once it has a real page.
+A top-level part of the site covering one subject: Heroes, Items, Commands (in menu order). Every tab is in the site menu; a tab without content yet shows a "Coming soon" page.
 _Avoid_: section (used for parts of a page), category
 
 **Hero**:
 A playable character in Deadlock, named as in the game.
 _Avoid_: character, ตัวละคร, champion
 
-**Patch notes**:
-Valve's published list of changes for a game update, which this site translates.
-_Avoid_: changelog, update log
+**Item**:
+Something a Hero buys in the shop with souls during a match, named as in the game.
+_Avoid_: upgrade, ไอเทม (in headings and tab names)
 
 ### Commands
 

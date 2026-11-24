@@ -5,26 +5,37 @@
 ---
 
 <!-- Hidden until the script runs, so readers without JavaScript only see the full list. -->
-<form class="command-filter" role="search" aria-label="ค้นหาคำสั่ง" data-command-filter hidden>
-  <p class="command-search">
-    <label for="command-search">ค้นหาคำสั่ง</label>
-    <input
-      id="command-search"
-      type="search"
-      name="q"
-      autocomplete="off"
-      spellcheck="false"
-      placeholder="ชื่อคำสั่งหรือคำภาษาไทย"
-    />
-  </p>
-  <fieldset class="cheat-filter">
-    <legend>คำสั่ง cheat</legend>
-    <label><input type="radio" name="cheat" value="all" checked /> ทั้งหมด</label>
-    <label><input type="radio" name="cheat" value="only" /> เฉพาะคำสั่ง cheat</label>
-    <label><input type="radio" name="cheat" value="none" /> ไม่ใช้ cheat</label>
-  </fieldset>
+<form
+  class="card deco-card my-8 bg-base-200"
+  role="search"
+  aria-label="ค้นหาคำสั่ง"
+  data-command-filter
+  hidden
+>
+  <div class="card-body gap-4 p-5">
+    <label class="flex flex-col gap-2">
+      <span class="text-sm font-semibold">ค้นหาคำสั่ง</span>
+      <input
+        type="search"
+        name="q"
+        class="input w-full border-base-300 bg-base-100"
+        aria-label="ค้นหาคำสั่ง"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="ชื่อคำสั่งหรือคำภาษาไทย"
+      />
+    </label>
+    <fieldset class="fieldset p-0">
+      <legend class="fieldset-legend pt-0 text-sm text-base-content">คำสั่ง cheat</legend>
+      <div class="join flex-wrap">
+        <input class="join-item btn btn-sm border-base-300" type="radio" name="cheat" value="all" aria-label="ทั้งหมด" checked />
+        <input class="join-item btn btn-sm border-base-300" type="radio" name="cheat" value="only" aria-label="เฉพาะคำสั่ง cheat" />
+        <input class="join-item btn btn-sm border-base-300" type="radio" name="cheat" value="none" aria-label="ไม่ใช้ cheat" />
+      </div>
+    </fieldset>
+  </div>
 </form>
-<p class="command-filter-empty" role="status" data-command-empty hidden>ไม่พบคำสั่งที่ตรงกับการค้นหา</p>
+<p class="my-8 text-center text-secondary" role="status" data-command-empty hidden>ไม่พบคำสั่งที่ตรงกับการค้นหา</p>
 
 <script>
   const form = document.querySelector<HTMLFormElement>('[data-command-filter]');
