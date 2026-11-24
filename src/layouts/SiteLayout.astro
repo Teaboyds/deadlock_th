@@ -1,0 +1,58 @@
+---
+import BackToTop from '../components/BackToTop.astro';
+import { tabs } from '../data/tabs';
+import '../styles/theme.css';
+
+interface Props {
+  title: string;
+  /** Id of the tab this page belongs to; omit on pages outside any tab (e.g. home). */
+  currentTab?: string;
+  /** Widen the page to make room for a sidebar beside the content column. */
+  wide?: boolean;
+}
+
+const { title, currentTab, wide = false } = Astro.props;
+const siteName = 'Deadlock TH';
+---
+
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#222021" />
+    <title>{title === siteName ? siteName : `${title} · ${siteName}`}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Limelight&family=Noto+Serif+Thai:wght@400;600&display=swap"
+    />
+  </head>
+  <body id="top" class:list={[{ 'page-wide': wide }]}>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="/" class="site-name">{siteName}</a>
+        <nav aria-label="แท็บ">
+          <ul>
+            {
+              tabs.map((tab) => (
+                <li>
+                  <a href={tab.href} aria-current={tab.id === currentTab ? 'page' : undefined}>
+                    {tab.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+      <span class="deco-rule" aria-hidden="true"></span>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <BackToTop />
+  </body>
+</html>

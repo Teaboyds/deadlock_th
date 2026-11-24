@@ -1,0 +1,77 @@
+---
+interface Props {
+  /** In-page shortcuts, in the order the sections appear. */
+  items: { href: string; label: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="สารบัญ" class="page-contents">
+  <ul>
+    {
+      items.map((item) => (
+        <li>
+          <a href={item.href}>{item.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script>
+  // Highlight the section being read, and disable links whose section the command filter has hidden.
+  const READ_LINE_PX = 140;
+
+  for (const nav of document.querySelectorAll<HTMLElement>('.page-contents')) {
+    const entries = [...nav.querySelectorAll<HTMLAnchorElement>('a')]
+      .map((link) => ({ link, target: document.getElementById(decodeURIComponent(link.hash.slice(1))) }))
+      .filter((e): e is { link: HTMLAnchorElement; target: HTMLElement } => e.target !== null);
+
+    const isHidden = (el: HTMLElement) => el.closest('[hidden]') !== null;
+
+    const markCurrent = () => {
+      let current = entries.find((e) => !isHidden(e.target));
+      for (const e of entries) {
+        if (!isHidden(e.target) && e.target.getBoundingClientRect().top <= READ_LINE_PX) current = e;
+      }
+      for (const e of entries) {
+        if (e === current) e.link.setAttribute('aria-current', 'location');
+        else e.link.removeAttribute('aria-current');
+      }
+    };
+
+    const markHidden = () => {
+      for (const { link, target } of entries) {
+        if (isHidden(target)) {
+          link.setAttribute('aria-disabled', 'true');
+          link.tabIndex = -1;
+        } else {
+          link.removeAttribute('aria-disabled');
+          link.removeAttribute('tabindex');
+        }
+      }
+      markCurrent();
+    };
+
+    let frame = 0;
+    window.addEventListener(
+      'scroll',
+      () => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(markCurrent);
+      },
+      { passive: true },
+    );
+    new MutationObserver(markHidden).observe(document.body, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['hidden'],
+    });
+    nav.addEventListener('click', (event) => {
+      const link = (event.target as Element).closest('a');
+      if (link?.getAttribute('aria-disabled') === 'true') event.preventDefault();
+    });
+    markHidden();
+  }
+</script>

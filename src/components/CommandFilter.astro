@@ -1,0 +1,70 @@
+---
+// Search box and cheat filter for the command list. Works on the statically rendered list:
+// cards carry data-command-card / data-name / data-th / data-cheat, and command group
+// sections carry data-command-group. Nothing else on the page is hidden.
+---
+
+<!-- Hidden until the script runs, so readers without JavaScript only see the full list. -->
+<form class="command-filter" role="search" aria-label="ค้นหาคำสั่ง" data-command-filter hidden>
+  <p class="command-search">
+    <label for="command-search">ค้นหาคำสั่ง</label>
+    <input
+      id="command-search"
+      type="search"
+      name="q"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="ชื่อคำสั่งหรือคำภาษาไทย"
+    />
+  </p>
+  <fieldset class="cheat-filter">
+    <legend>คำสั่ง cheat</legend>
+    <label><input type="radio" name="cheat" value="all" checked /> ทั้งหมด</label>
+    <label><input type="radio" name="cheat" value="only" /> เฉพาะคำสั่ง cheat</label>
+    <label><input type="radio" name="cheat" value="none" /> ไม่ใช้ cheat</label>
+  </fieldset>
+</form>
+<p class="command-filter-empty" role="status" data-command-empty hidden>ไม่พบคำสั่งที่ตรงกับการค้นหา</p>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-command-filter]');
+  const empty = document.querySelector<HTMLElement>('[data-command-empty]');
+
+  if (form && empty) {
+    const search = form.querySelector<HTMLInputElement>('input[name="q"]')!;
+    const groups = [...document.querySelectorAll<HTMLElement>('[data-command-group]')];
+
+    const apply = () => {
+      const query = search.value.trim().toLocaleLowerCase();
+      const cheat = new FormData(form).get('cheat') ?? 'all';
+      const filtering = query !== '' || cheat !== 'all';
+      let total = 0;
+
+      for (const group of groups) {
+        const cards = [...group.querySelectorAll<HTMLElement>('[data-command-card]')];
+        let visible = 0;
+        for (const card of cards) {
+          const isCheat = card.dataset.cheat === 'true';
+          const matches =
+            (cheat === 'all' || (cheat === 'only') === isCheat) &&
+            (query === '' ||
+              (card.dataset.name ?? '').toLocaleLowerCase().includes(query) ||
+              (card.dataset.th ?? '').toLocaleLowerCase().includes(query));
+          card.hidden = !matches;
+          if (matches) visible++;
+        }
+        // Groups that are empty by design stay visible only while nothing is filtered.
+        group.hidden = filtering ? visible === 0 : false;
+        total += visible;
+      }
+
+      empty.hidden = !filtering || total > 0;
+    };
+
+    form.addEventListener('input', apply);
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.hidden = false;
+    // Restored form state (e.g. after back navigation) should apply straight away.
+    apply();
+  }
+</script>

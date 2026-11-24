@@ -1,0 +1,21 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { tabs } from '../data/tabs';
+---
+
+<SiteLayout title="Deadlock TH">
+  <h1>Deadlock TH</h1>
+  <p>คู่มือ Deadlock ภาษาไทย สั้น อ่านง่าย</p>
+  <ul class="tab-cards">
+    {
+      tabs.map((tab) => (
+        <li>
+          <a href={tab.href}>
+            <h2>{tab.label}</h2>
+            <p>{tab.description}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</SiteLayout>

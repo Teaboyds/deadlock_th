@@ -1,0 +1,47 @@
+---
+interface Props {
+  /** Exact text put on the clipboard, e.g. a command name. */
+  text: string;
+  /** Accessible name; defaults to "คัดลอก <text>". */
+  label?: string;
+}
+
+const { text, label = `คัดลอก ${text}` } = Astro.props;
+---
+
+<!-- Hidden until the script runs, so readers without JavaScript don't see a dead button. -->
+<button type="button" class="copy-button" data-copy={text} aria-label={label} hidden>
+  <span class="copy-button-text">คัดลอก</span>
+</button>
+
+<script>
+  const FEEDBACK_MS = 1500;
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-copy]')) {
+    button.hidden = false;
+  }
+
+  const timers = new WeakMap<HTMLButtonElement, number>();
+
+  document.addEventListener('click', async (event) => {
+    const button = (event.target as Element | null)?.closest<HTMLButtonElement>('button[data-copy]');
+    if (!button) return;
+    const textEl = button.querySelector('.copy-button-text');
+    let message = 'คัดลอกแล้ว';
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy ?? '');
+      button.dataset.copied = 'true';
+    } catch {
+      message = 'คัดลอกไม่สำเร็จ';
+    }
+    if (textEl) textEl.textContent = message;
+    window.clearTimeout(timers.get(button));
+    timers.set(
+      button,
+      window.setTimeout(() => {
+        if (textEl) textEl.textContent = 'คัดลอก';
+        delete button.dataset.copied;
+      }, FEEDBACK_MS),
+    );
+  });
+</script>

@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import CommandCard from '../components/CommandCard.astro';
+import CommandFilter from '../components/CommandFilter.astro';
+import GuideSections from '../components/GuideSections.astro';
+import PageContents from '../components/PageContents.astro';
+import SourcesFooter from '../components/SourcesFooter.astro';
+import { commandGroups } from '../data/command-groups';
+
+const commands = (await getCollection('commands')).sort((a, b) => a.id.localeCompare(b.id));
+const groups = commandGroups.map((group) => ({
+  ...group,
+  commands: commands.filter((cmd) => cmd.data.group === group.id),
+}));
+
+// Shortcuts follow page order: guides before the groups, the groups, then guides after them.
+const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
+const guideLinks = (placement: 'before-commands' | 'after-commands') =>
+  guides
+    .filter((g) => g.data.placement === placement)
+    .map((g) => ({ href: `#guide-${g.id}`, label: g.data.title }));
+const contents = [
+  ...guideLinks('before-commands'),
+  ...groups.map((g) => ({ href: `#group-${g.id}`, label: g.label })),
+  ...guideLinks('after-commands'),
+];
+---
+
+<SiteLayout title="Commands" currentTab="commands" wide>
+  <h1>Console commands</h1>
+  <div class="with-sidebar">
+    <PageContents items={contents} />
+    <div class="page-body">
+      <GuideSections placement="before-commands" />
+      <CommandFilter />
+      {
+        groups.map((group) => (
+          <section aria-labelledby={`group-${group.id}`} data-command-group={group.id}>
+            <h2 id={`group-${group.id}`}>{group.label}</h2>
+            {group.id === 'binds' && <GuideSections placement="binds" level={3} />}
+            {group.commands.length > 0 ? (
+              group.commands.map((command) => <CommandCard command={command} />)
+            ) : (
+              <p class="group-empty">ยังไม่มีคำสั่งในกลุ่มนี้</p>
+            )}
+          </section>
+        ))
+      }
+      <GuideSections placement="after-commands" />
+      <SourcesFooter />
+    </div>
+  </div>
+</SiteLayout>

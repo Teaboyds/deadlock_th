@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { sources } from '../data/sources';
+import CopyButton from './CopyButton.astro';
+
+interface Props {
+  command: CollectionEntry<'commands'>;
+}
+
+const { id: name, data } = Astro.props.command;
+// Names can hold spaces and quotes (example binds); aria-labelledby needs a single-token id.
+const headingId = `cmd-${name.replace(/[^A-Za-z0-9_-]+/g, '-')}`;
+---
+
+<article
+  aria-labelledby={headingId}
+  class="command-card"
+  data-command-card
+  data-name={name}
+  data-th={data.th}
+  data-cheat={String(data.cheat)}
+>
+  <h3 id={headingId}><code>{name}</code></h3>
+  <CopyButton text={name} />
+  {data.cheat && <span class="badge badge-cheat">ต้องเปิด cheats</span>}
+  {data.untested && <span class="badge badge-untested">ยังไม่ได้ทดสอบ</span>}
+  {
+    (data.values.length > 0 || data.default) && (
+      <dl class="command-values">
+        {data.values.length > 0 && (
+          <>
+            <dt>ค่าที่ใส่ได้</dt>
+            <dd>{data.values.join(' · ')}</dd>
+          </>
+        )}
+        {data.default && (
+          <>
+            <dt>ค่าเริ่มต้น</dt>
+            <dd>{data.default}</dd>
+          </>
+        )}
+      </dl>
+    )
+  }
+  <p class="command-th">{data.th}</p>
+  {
+    data.practice && (
+      <aside role="note" aria-label="ใช้ฝึกอะไร" class="practice-note">
+        <strong>ใช้ฝึกอะไร:</strong> {data.practice}
+      </aside>
+    )
+  }
+  {
+    data.noReleaseFlag && (
+      <p class="release-warning">Valve ไม่ได้ติด flag release ให้คำสั่งนี้ จึงอาจใช้ไม่ได้ในเกมปกติ</p>
+    )
+  }
+  <p class="source">ที่มา: <span class="badge badge-source">{sources[data.source].label}</span></p>
+</article>

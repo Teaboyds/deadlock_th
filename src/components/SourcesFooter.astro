@@ -1,0 +1,19 @@
+---
+import { sources, translatedOn } from '../data/sources';
+
+const listed = [sources['deadlock-wiki'], sources['valve-dev-wiki']];
+---
+
+<footer class="sources-footer">
+  <h2>ที่มา</h2>
+  <ul>
+    {
+      listed.map((source) => (
+        <li>
+          <a href={source.url}>{source.label}</a> · ฉบับแก้ไข <a href={source.revisionUrl}>{source.revision}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <p>แปลเมื่อ <time datetime={translatedOn}>{translatedOn}</time></p>
+</footer>

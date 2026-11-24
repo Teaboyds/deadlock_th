@@ -1,0 +1,28 @@
+---
+---
+
+<!-- Hidden until the script sees the reader has scrolled down; the link still works as a plain #top jump. -->
+<a href="#top" class="back-to-top" aria-label="กลับขึ้นด้านบน" title="กลับขึ้นด้านบน" hidden>
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+    <path d="M12 5 4 13h5v6h6v-6h5z" fill="currentColor"></path>
+  </svg>
+</a>
+
+<script>
+  const SHOW_AFTER_PX = 600;
+  const button = document.querySelector<HTMLAnchorElement>('.back-to-top');
+
+  if (button) {
+    const update = () => {
+      button.hidden = window.scrollY < SHOW_AFTER_PX;
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  }
+</script>

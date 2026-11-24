@@ -1,0 +1,793 @@
+# Console commands. Key = exact command name. See GLOSSARY.md for terms.
+# Source: deadlock.wiki Console commands table, oldid=236265 (52 rows -> 51 entries;
+# the two citadel_rapid_stamina_regen rows are merged into one entry).
+
+# --- ฝึกซ้อม (practice) ---
+
+citadel_ability_cooldown_max:
+  values: ['2']
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: ตั้งคูลดาวน์ทุกสกิลให้เหลือตามจำนวนวินาทีที่ใส่ (สั้นกว่าปกติได้อย่างเดียว) ใส่ 0 หรือติดลบเพื่อกลับเป็นค่าปกติ
+  en: Changes all ability cooldown duration to 2 seconds. The duration is limited to below normal ability cooldown duration. When set to a number below or equal to zero, it is reset back to the default cooldown. Requires cheats.
+  practice: ฝึกคอมโบสกิลซ้ำ ๆ ได้ทันทีโดยไม่ต้องรอคูลดาวน์
+
+citadel_allow_purchasing_anywhere:
+  values: [true/false]
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: ซื้อของได้ทุกที่บนแมพ ไม่ต้องกลับไปที่ shop
+  en: Enables purchasing anywhere on the map, not just at shops. Requires cheats.
+  practice: ลองชุดไอเทมต่าง ๆ ได้เร็วโดยไม่ต้องเดินกลับไปซื้อ
+
+citadel_disable_no_hero_death:
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: ปิดโหมดอมตะ (ใช้คู่กับ citadel_enable_no_hero_death)
+  en: Disables invincibility. Requires cheats.
+
+citadel_dps_multiplier:
+  values: [number]
+  default: '1.0'
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: คูณดาเมจทั้งหมดที่ผู้เล่นทำ ทั้งดาเมจปืนและดาเมจ ability
+  en: Adds a multiplier to player damage output. Affects all damage including weapon and ability damage. Requires cheats.
+  practice: ปรับดาเมจขึ้นลงเพื่อดูว่าต้องทำดาเมจเท่าไรถึงจะฆ่าเป้าหมายได้
+
+citadel_enable_no_hero_death:
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: เปิดโหมดอมตะ (เลือดจะไม่ต่ำกว่า 1)
+  en: Enables invincibility (your health will never go below 1). Requires cheats.
+  practice: ฝึกการเคลื่อนที่หรือคอมโบท่ามกลางศัตรูได้นาน ๆ โดยไม่ตาย
+
+citadel_hero_testing_enabled:
+  values: [true/false]
+  default: 'false'
+  cheat: false
+  group: practice
+  source: deadlock-wiki
+  th: เปิดเมนู "Testing Tools" ใน Hero Sandbox การเปิดเมนูไม่ต้องใช้ cheats แต่การใช้ฟังก์ชันในเมนูต้องใช้
+  en: Enables the "Testing Tools" menu from the Hero Sandbox. Enabling the menu does not require cheats, but using any of this menu's functionality will.
+
+citadel_hero_testing_infinite_money:
+  values: [true/false]
+  default: 'false'
+  cheat: false
+  group: practice
+  source: deadlock-wiki
+  th: ให้ souls และ ability point ไม่จำกัดแก่ผู้เล่น
+  en: Gives players infinite souls and ability points.
+  practice: ซื้อไอเทมและอัปสกิลได้ทันที เหมาะกับการลองบิลด์
+
+citadel_item_purchases_force_enhanced:
+  values: [true/false]
+  default: 'false'
+  cheat: false
+  group: practice
+  source: deadlock-wiki
+  th: เมื่อเป็น true ไอเทมทุกชิ้นที่ซื้อหรือดราฟต์จะเป็นแบบ enhanced
+  en: While true, all items purchased/drafted will be enhanced.
+  needsReview: true
+
+citadel_player_move_speed_scale:
+  values: [number]
+  default: '1.0'
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: ปรับสเกลความเร็วการเคลื่อนที่ ให้ผู้เล่นเดินเร็วขึ้นหรือช้าลง
+  en: Scales movement speed causing players to move faster or slower. Requires cheats.
+
+citadel_rapid_stamina_regen:
+  values: ['true', 'false']
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: true เปิดโหมด stamina ฟื้นเร็วมาก, false ปิดโหมดนี้
+  en: 'true: Enables fast stamina, causing stamina to regen very fast. Requires cheats. false: Disables fast stamina. Requires cheats.'
+  practice: ฝึก dash และการเคลื่อนที่ต่อเนื่องได้โดยไม่ต้องรอ stamina
+
+citadel_show_bullet_lag_compensation:
+  values: [number]
+  default: '0'
+  cheat: false
+  group: practice
+  source: deadlock-wiki
+  th: ตั้งระยะเวลาที่แสดง hitbox ของกระสุน กรอบสีเขียวคือฝั่ง client สีแดงคือฝั่ง server
+  en: How long to show bullet hitboxes. Green hitbox is client, red hitbox is server.
+  practice: ดูว่ากระสุนโดนจริงตรงไหนเทียบกับที่เห็นบนจอ ช่วยปรับการเล็ง
+
+citadel_unlock_flex_slots:
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: ปลดล็อก Flex slot ทั้งหมด
+  en: Unlocks all flex slots. Requires cheats.
+  practice: ลองบิลด์เต็มช่องไอเทมได้โดยไม่ต้องรอปลดล็อกในเกม
+
+citadel_weapon_damage_multiplier:
+  values: [number]
+  default: '1.0'
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: คูณดาเมจปืน ไม่มีผลกับดาเมจ ability
+  en: Adds a multiplier to weapon damage output. Does not affect ability damage. Requires cheats.
+  practice: แยกทดสอบดาเมจปืนโดยไม่ให้ดาเมจ ability มาปน
+
+healthpct:
+  values: [0 - 100]
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: ตั้งเลือดของคุณเป็นเปอร์เซ็นต์ที่กำหนดของเลือดสูงสุด
+  en: Sets your health to the given percentage of your max health. Requires cheats.
+  practice: ฝึกเล่นตอนเลือดน้อย หรือทดสอบไอเทมที่ทำงานตามเลือดที่เหลือ
+
+hud_damagemeter:
+  values: [true/false]
+  default: 'false'
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: แสดง DPS ปัจจุบันของคุณข้างเป้าเล็ง
+  en: Displays your current DPS next to your crosshair. Requires cheats.
+  practice: วัด DPS เพื่อเทียบบิลด์หรือคอมโบว่าแบบไหนแรงกว่า
+  needsReview: true
+
+hurtme:
+  values: [number]
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: ทำดาเมจใส่ตัวเอง ถ้าไม่ใส่ค่าจะโดน 10 ดาเมจ
+  en: Deal damage to yourself. Deals 10 damage with no value. Requires cheats.
+
+kingme:
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: ได้ 1.2 ล้าน souls และอัปเลเวลทุก ability
+  en: Gives you 1.2 million souls and levels up all your abilities. Requires cheats.
+  practice: ได้ของครบทันที ใช้ลองบิลด์ช่วงท้ายเกมหรือฝึกคอมโบตอนสกิลเต็ม
+
+spawn_hero_testing_controller:
+  cheat: true
+  group: practice
+  source: deadlock-wiki
+  th: เพิ่มเครื่องมือ hero testing เข้าไปใน UI
+  en: Adds the hero testing tools to the UI. Requires cheats.
+
+# --- Bot / NPC / Trooper (bots) ---
+
+bot_kick_all:
+  cheat: false
+  group: bots
+  source: deadlock-wiki
+  th: เตะ bot ทั้งหมดออกจากเกม
+  en: Kicks all bots from the game.
+
+citadel_create_unit:
+  values: [ชื่อ Hero จาก dump_hero_names]
+  cheat: true
+  group: bots
+  source: deadlock-wiki
+  th: เสก dummy bot ฝ่ายเดียวกันขึ้นมาตรงหน้าผู้เล่น ใส่ชื่อ Hero จาก dump_hero_names
+  en: Spawns an allied dummy bot in front of the player. Requires cheats
+  practice: ใช้เป็นเป้าซ้อมหรือทดลองปฏิสัมพันธ์กับ Hero อื่น
+
+citadel_solo_bot_match:
+  values: [true/false]
+  default: 'false'
+  cheat: false
+  group: bots
+  source: deadlock-wiki
+  th: ถูกเปิดโดย config ของ bot match ถ้าปิด bot จะไม่ขยับ และยังเปิดการนับถอยหลังก่อนเริ่มเกมด้วย ยังไม่แน่ใจว่าทำอะไรอีก
+  en: Gets enabled by bot match configs. When disabled, bots don't move. This also enables the pregame countdown. Not sure what else it does.
+
+citadel_spawn_nearby_neutrals:
+  cheat: true
+  group: bots
+  source: deadlock-wiki
+  th: เกิด neutral camp ที่อยู่ใกล้ ๆ ใหม่
+  en: Respawns nearby neutral camps. Requires cheats.
+  practice: ฝึกฟาร์ม neutral camp ซ้ำได้โดยไม่ต้องรอเกิดใหม่
+
+citadel_spawn_practice_bots:
+  values: [true/false]
+  default: 'false'
+  cheat: false
+  group: bots
+  source: deadlock-wiki
+  th: เปิดเพื่อให้มี bot ตอนเริ่มเกม หรือตั้งเป็น true ระหว่างเกมก็ได้ (แต่ถ้าตั้ง false แล้วเตะ bot แล้วตั้ง true ใหม่ bot จะไม่เกิดอีก)
+  en: Enable to spawn bots when the game starts. You can also set this to true during a game to spawn bots (although setting it to false, kicking bots, and setting it to true again will not respawn bots).
+  practice: มีคู่ซ้อมเป็น bot โดยไม่ต้องหาผู้เล่นจริง
+
+citadel_spawn_practice_bots_count:
+  values: [number]
+  cheat: false
+  group: bots
+  source: deadlock-wiki
+  th: จำนวน bot ที่จะเกิดเมื่อตั้ง citadel_spawn_practice_bots เป็น true
+  en: Number of practice bots to spawn when `citadel_spawn_practice_bots` is set to true.
+
+kill:
+  values: [The name of an NPC or Player to kill]
+  cheat: false
+  group: bots
+  source: deadlock-wiki
+  th: ฆ่าเป้าหมายที่ระบุ (ใส่ชื่อ NPC หรือผู้เล่น)
+  en: Kills the target.
+
+trooper_kill_all:
+  cheat: true
+  group: bots
+  source: deadlock-wiki
+  th: ฆ่า creep ทุกตัวที่ไม่ใช่ neutral และ Guardian ที่ไม่มีเกราะป้องกัน
+  en: Kills all non-neutral creeps and guardians that aren't shielded. Requires cheats.
+  needsReview: true
+
+trooper_kill_non_bosses:
+  cheat: true
+  group: bots
+  source: deadlock-wiki
+  th: ฆ่า creep ทุกตัวที่ไม่ใช่ neutral
+  en: Kills all non-neutral creeps. Requires cheats.
+
+# --- แมพ / ล็อบบี้ / เซิร์ฟเวอร์ (map-lobby) ---
+
+changelevel:
+  values: [ดูคำสั่ง map]
+  cheat: false
+  group: map-lobby
+  source: deadlock-wiki
+  th: โหลดแมพใหม่ ถ้าใช้ในล็อบบี้ผู้เล่นทุกคนจะยังเชื่อมต่ออยู่ระหว่างเปลี่ยนแมพ
+  en: Loads a new map. When used in a multiplayer lobby, players will remain connected while the map changes.
+
+changeteam:
+  values:
+    - '0: เลือกทีมและ Hero'
+    - '1: เข้าเป็นผู้ชม (spectator)'
+    - '2: เข้าทีม The Hidden King แล้วเลือก Hero'
+    - '3: เข้าทีม The Archmother แล้วเลือก Hero'
+  cheat: false
+  group: map-lobby
+  source: deadlock-wiki
+  th: เปลี่ยนทีมและ Hero ของคุณ
+  en: Allows changing your team and hero.
+
+citadel_pause:
+  cheat: false
+  group: map-lobby
+  source: deadlock-wiki
+  th: หยุดเกมชั่วคราว
+  en: Pause the match.
+
+citadel_pregame_duration:
+  values: [number]
+  default: '10.0'
+  cheat: false
+  group: map-lobby
+  source: deadlock-wiki
+  th: ตั้งระยะเวลาช่วง pregame (นับถอยหลังก่อนเริ่มเกม)
+  en: Changes the duration of the pregame (countdown before the game starts).
+
+citadel_region_override:
+  values:
+    - '-1: อัตโนมัติ'
+    - '0: North America'
+    - '1: Europe'
+    - '2: Asia'
+    - '3: South America'
+    - '4: Europe (ไม่แน่ใจว่าต่างจาก 1 หรือไม่)'
+    - '5: Oceania'
+  default: '-1'
+  cheat: false
+  group: map-lobby
+  source: deadlock-wiki
+  th: บังคับเลือกภูมิภาคสำหรับหาแมตช์ (ตอนนี้ใช้ไม่ได้)
+  en: Overrides your matchmaking region. (Currently does not work)
+
+citadel_unpause_countdown:
+  values: [number]
+  default: '3'
+  cheat: true
+  group: map-lobby
+  source: deadlock-wiki
+  th: ตั้งจำนวนวินาทีที่นับถอยหลังตอนเลิกหยุดเกม
+  en: Changes how many seconds the countdown will last when the game is unpaused. Requires cheats.
+
+disconnect:
+  cheat: false
+  group: map-lobby
+  source: deadlock-wiki
+  th: ออกจากแมตช์ปัจจุบัน
+  en: Disconnect from the current match.
+
+map:
+  values:
+    - 'dl_midtown: แมพหลักของโหมด multiplayer'
+    - 'dl_streets: แมพ 4 เลน'
+    - 'street_test: แมพ 4 เลนเวอร์ชันเก่า (ก่อน Update:September 26, 2024)'
+    - 'new_player_basics: แมพ Hero Sandbox'
+    - '1v1_test: ดูเหมือนเป็น street_test เวอร์ชันแรก ๆ ที่เล็กกว่า'
+    - 'hero_testing: ดูเหมือนเป็น Hero Sandbox เวอร์ชันแรก ๆ'
+  cheat: false
+  group: map-lobby
+  source: deadlock-wiki
+  th: เริ่มเกมและโหลดเข้าแมพที่เลือก
+  en: Starts a game and loads into the chosen map.
+
+selecthero:
+  values: [ชื่อ Hero จาก dump_hero_names]
+  cheat: false
+  group: map-lobby
+  source: deadlock-wiki
+  th: เลือก Hero (ใส่ชื่อจาก dump_hero_names) ต้องอยู่หน้าเลือก Hero หรือตั้ง citadel_hero_testing_enabled เป็น true
+  en: Requires you to be on the hero selection screen, or have `citadel_hero_testing_enabled` set to true.
+  needsReview: true
+
+# --- HUD / ข้อมูล (hud-info) ---
+
+citadel_display_new_player_recommendations:
+  values: [true/false]
+  default: 'true'
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: เปิด/ปิดป้าย "Great for New Players" ตอนเลือก Hero
+  en: Turns the "Great for New Players" banner on/off when selecting a hero.
+
+citadel_hud_visible:
+  values: [true/false]
+  default: 'true'
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: แสดง/ซ่อน HUD
+  en: Shows/hides the HUD.
+
+citadel_minimap_max_icon_shrink:
+  values: ['1']
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: ระดับที่ไอคอนบน minimap หดลงเมื่ออยู่รวมกัน (เช่นไอคอนผู้เล่น)
+  en: Range of icons shrinking when grouped (e.g. player icons)
+
+citadel_minimap_overlap_scan_distance:
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: ไอคอนบน minimap ต้องอยู่ใกล้กันแค่ไหนถึงจะหดลง (ดู citadel_minimap_max_icon_shrink)
+  en: How close icons have to be to shrink (see citadel_minimap_max_icon_shrink)
+
+citadel_minimap_player_width:
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: ขนาดเริ่มต้นของไอคอนผู้เล่นบน minimap
+  en: Default minimap player icon sizes
+
+citadel_minimap_unit_click_radius:
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: รัศมีการ ping บน minimap
+  en: Minimap ping radius
+
+citadel_minimap_zip_line_thickness:
+  values: ['5']
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: ความหนาของเส้น zipline บน minimap
+  en: Thickness of ziplines on minimap
+
+citadel_unit_status_use_new:
+  values: [true/false]
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: เปิดใช้แถบเลือดแบบทดลอง
+  en: Enables experimental health bars.
+
+dump_hero_names:
+  cheat: true
+  group: hud-info
+  source: deadlock-wiki
+  th: แสดงรายชื่อภายใน (internal name) ของ Hero ทุกตัวที่มี
+  en: Lists the internal names of all available heroes. Requires cheats.
+
+minimap_update_rate_hz:
+  values: ['5']
+  cheat: false
+  group: hud-info
+  source: deadlock-wiki
+  th: ความถี่ในการอัปเดต minimap
+  en: Frequency of minimap updates
+
+# --- Bind / ตั้งปุ่ม (binds): see the secondary-source block at the end ---
+
+# --- อื่น ๆ (other) ---
+
+citadel_test_survey_popup:
+  cheat: false
+  group: other
+  source: deadlock-wiki
+  th: แสดงป๊อปอัปแบบสอบถามหลังจบแมตช์ที่ให้ผู้เล่นให้คะแนนแมตช์
+  en: Shows the post-match survey popup asking players to rate the match.
+
+deadlock_early_development_warning_disabled:
+  values: [true/false]
+  default: 'false'
+  cheat: false
+  group: other
+  source: deadlock-wiki
+  th: ปิดป๊อปอัป Early Development Build ตอนเปิดเกม ค่านี้จะเป็น true เองถ้าติ๊ก "Don't show this again" แล้วปิดป๊อปอัป
+  en: Disables the Early Development Build popup when the game starts. This gets set to true if you close the popup after checking "Don't show this again".
+
+deadlock_get_old_builds:
+  cheat: false
+  group: other
+  source: deadlock-wiki
+  th: ดาวน์โหลดและแสดงข้อมูลบิลด์ทั้งหมดของบัญชีคุณที่สร้างก่อนมีระบบบิลด์ใหม่ (เพิ่มใน Update:August 6, 2024)
+  en: Downloads and prints out all of the build data for your account prior to the new builds feature. Added in Update:August 6, 2024.
+
+deadlock_post_match_survey_disabled:
+  values: [true/false]
+  default: 'false'
+  cheat: false
+  group: other
+  source: deadlock-wiki
+  th: ปิดแบบสอบถามหลังจบแมตช์ ค่านี้จะเป็น true เองถ้าติ๊ก "Don't show this again" แล้วส่งหรือข้ามแบบสอบถาม
+  en: Disables the post-match survey. This gets set to true if you submit or skip a survey after checking "Don't show this again".
+
+killme:
+  cheat: false
+  group: other
+  source: deadlock-wiki
+  th: ฆ่าตัวเอง
+  en: Kills you.
+
+# ============================================================
+# Secondary source: Valve Developer Wiki "List of Deadlock console commands and variables",
+# oldid=509699 (saved in source_deadlock/vdc-deadlock-commands.htm), plus example binds written
+# by this site. Everything here is untested. Where Valve contradicts the wiki, the wiki entries
+# above win and nothing from Valve is added for that command.
+# ============================================================
+
+# --- ฝึกซ้อม (practice), secondary source ---
+
+citadel_enable_unlimited_ammo:
+  cheat: true
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "เปิดกระสุนไม่จำกัด (ปิดด้วย citadel_disable_unlimited_ammo)"
+  en: "Enables unlimited ammo"
+  practice: "ซ้อมยิงต่อเนื่องและซ้อมเล็งโดยไม่ต้องรีโหลด"
+  noReleaseFlag: true
+
+citadel_enable_fast_cooldowns:
+  cheat: true
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "เปิดคูลดาวน์เร็ว (ปิดด้วย citadel_disable_fast_cooldowns)"
+  en: "Enables fast cooldowns"
+  practice: "ซ้อมคอมโบสกิลซ้ำ ๆ"
+  noReleaseFlag: true
+
+citadel_give_gold:
+  values: ["<gold>"]
+  cheat: true
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "ให้ gold ตามจำนวนที่ใส่กับผู้เล่นทุกคน"
+  en: "<gold> Give gold value to all players"
+  practice: "ซื้อไอเทมมาลองได้ทันที"
+  noReleaseFlag: true
+  needsReview: true  # Valve calls the currency gold; unsure whether it equals souls in the game UI.
+
+citadel_bot_zig_zag:
+  default: "0"
+  cheat: false
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "บังคับให้ bot เดินซิกแซก ค่ามากกว่า 0 = ซ้าย-ขวา, น้อยกว่า 0 = หน้า-หลัง"
+  en: "Forces citadel bots to zig-zag side to side if > 0 or back and forth if < 0"
+  practice: "ซ้อมเล็งเป้าที่เคลื่อนที่"
+
+citadel_bot_move_random:
+  values: ["true", "false"]
+  default: "false"
+  cheat: false
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "บังคับให้ bot เดินไปมาทั่ว ๆ"
+  en: "Forces citadel bots to move all around"
+  practice: "ซ้อมเล็งเป้าที่เดาทางยาก"
+
+citadel_bot_melee:
+  values: ["0: ปิด", "1: ตีเบา", "2: ตีหนัก"]
+  default: "0"
+  cheat: false
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "บังคับให้ bot ตีระยะประชิดไม่หยุด"
+  en: "Forces citadel bots to melee continuously, 1 light, 2Heavy"
+  practice: "ซ้อม parry"
+
+citadel_bot_parry:
+  values: ["true", "false"]
+  default: "false"
+  cheat: false
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "บังคับให้ bot parry ไม่หยุด"
+  en: "Forces citadel bots to Parry continuously"
+  practice: "ซ้อมรับมือศัตรูที่ parry"
+
+citadel_bot_shoot:
+  values: ["0: ปิด", "1: ยิงแบบเล็งกล้อง", "2: ยิงแบบไม่เล็งกล้อง"]
+  default: "0"
+  cheat: false
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "บังคับให้ bot ยิงไม่หยุด"
+  en: "Forces citadel bots to fire continuously. 1scope shooting 2unscope shooting."
+  practice: "ซ้อมหลบกระสุนและยืนแลกดาเมจ"
+
+citadel_bot_use_ability:
+  default: "0"
+  cheat: false
+  group: practice
+  source: valve-dev-wiki
+  untested: true
+  th: "ให้ bot ใช้สกิลทันทีทุกครั้งที่คูลดาวน์หมด"
+  en: "Causes Bot to Constantly use Ability when its available"
+  practice: "ซ้อมรับมือสกิลของ Hero นั้น"
+
+# --- Bot / NPC / Trooper (bots), secondary source ---
+
+citadel_spawn_all_heroes_in_a_line:
+  cheat: true
+  group: bots
+  source: valve-dev-wiki
+  untested: true
+  th: "เสก Hero ทุกตัวเป็น bot เรียงแถวหน้าผู้เล่น"
+  en: "Spawn all of the heroes as bots in a line in front of you"
+  practice: "ดูขนาด hitbox และลองสกิลใส่ Hero ทุกตัว"
+  noReleaseFlag: true
+
+# --- HUD / ข้อมูล (hud-info), secondary source ---
+
+cl_showfps:
+  values: ["0: ปิด", "1: FPS", "2: FPS แบบเฉลี่ย", "3: เวลาเซิร์ฟเวอร์ (ms)", "4: FPS และบันทึกลงไฟล์"]
+  default: "0"
+  cheat: false
+  group: hud-info
+  source: valve-dev-wiki
+  untested: true
+  th: "แสดงตัวเลข FPS บนจอ"
+  en: "Draw fps meter at top of screen (1 = fps, 2 = smooth fps, 3 = server MS, 4 = Show FPS and Log to file )"
+
+cl_hud_telemetry_frametime_show:
+  values: ["0: ไม่แสดง", "1: เฉพาะตอนแย่", "2: แสดงตลอด"]
+  default: "1"
+  cheat: false
+  group: hud-info
+  source: valve-dev-wiki
+  untested: true
+  th: "แสดง frame time (FPS) บน HUD"
+  en: "Show frame time (FPS) in the HUD. 0=never, 1=only if poor, 2=always"
+
+cl_hud_telemetry_ping_show:
+  values: ["0: ไม่แสดง", "1: เฉพาะตอนแย่", "2: แสดงตลอด"]
+  default: "1"
+  cheat: false
+  group: hud-info
+  source: valve-dev-wiki
+  untested: true
+  th: "แสดง ping บน HUD"
+  en: "Show ping in the HUD. 0=never, 1=only in poor conditions, 2=always"
+
+cl_hud_telemetry_net_misdelivery_show:
+  values: ["0: ไม่แสดง", "1: เฉพาะตอนแย่", "2: แสดงตลอด"]
+  default: "1"
+  cheat: false
+  group: hud-info
+  source: valve-dev-wiki
+  untested: true
+  th: "แสดงเปอร์เซ็นต์ข้อมูลที่หายหรือมาช้าเพราะเน็ต (packet loss)"
+  en: "Show percentage of user commands & server snapshots that are missed due to network conditions. 0=never, 1=only in poor conditions, 2=always"
+
+cl_hud_telemetry_net_quality_graph_show:
+  values: ["0: ไม่แสดง", "1: เฉพาะตอนแย่", "2: แสดงตลอด"]
+  default: "0"
+  cheat: false
+  group: hud-info
+  source: valve-dev-wiki
+  untested: true
+  th: "แสดงกราฟคุณภาพเน็ต (jitter, loss) บน HUD"
+  en: "Show packet jitter and netframe loss/reordering in the HUD. 0=never, 1=only in poor conditions, 2=always"
+
+# --- Bind / ตั้งปุ่ม (binds), secondary source ---
+
+bind:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "ผูกปุ่มกับคำสั่ง: bind <ปุ่ม> \"<คำสั่ง>\""
+  en: "Bind a key."
+
+unbind:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "ยกเลิก bind ของปุ่มที่ระบุ"
+  en: "Unbind a key."
+
+unbindall:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "ยกเลิก bind ทุกปุ่ม (รวมปุ่มเดินและปุ่มยิง)"
+  en: "Unbind all keys."
+
+binddefaults:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "คืนทุกปุ่มเป็นค่าเริ่มต้น"
+  en: "Bind all keys to their default values."
+
+toggle:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "สลับค่าของตัวแปรที่ระบุไปมา: toggle <ตัวแปร> <ค่า1> <ค่า2>"
+  en: "Toggles specified convar value on and off."
+
+incrementvar:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "เพิ่มค่าของตัวแปรที่ระบุ"
+  en: "Increment specified convar value."
+
+alias:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "ตั้งชื่อให้คำสั่งหรือชุดคำสั่ง: alias <ชื่อ> \"<คำสั่ง>\""
+  en: "Alias a command."
+
+key_listboundkeys:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "แสดงรายการปุ่มทั้งหมดที่มี bind และคำสั่งที่ผูกไว้"
+  en: "List bound keys with bindings."
+
+key_findbinding:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "หาว่าปุ่มไหนผูกกับคำสั่งที่ระบุ"
+  en: "Find key bound to specified command string."
+
+host_writeconfig:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "บันทึกค่าตั้งของผู้เล่นลงไฟล์ config"
+  en: "Saves out the user config values."
+
+exec:
+  cheat: false
+  group: binds
+  source: valve-dev-wiki
+  untested: true
+  th: "รันไฟล์ .cfg เช่น exec autoexec"
+  en: "Execute a cfg file"
+
+"bind m \"toggle volume 0 0.5\"":
+  cheat: false
+  group: binds
+  source: site
+  untested: true
+  th: "กด m เพื่อสลับเสียงเกมระหว่างปิดเสียงกับเสียงครึ่งหนึ่ง"
+  noReleaseFlag: true
+
+"bind F8 \"toggle cl_showfps 0 1\"":
+  cheat: false
+  group: binds
+  source: site
+  untested: true
+  th: "กด F8 เพื่อเปิด/ปิดตัวเลข FPS"
+
+"bind F9 \"toggle citadel_hud_visible\"":
+  cheat: false
+  group: binds
+  source: site
+  untested: true
+  th: "กด F9 เพื่อซ่อน/แสดง HUD"
+  practice: "ซ่อน HUD เพื่อดูมุมกล้องหรือถ่ายคลิปทบทวนการเล่น"
+
+"bind F3 \"sv_cheats true; citadel_enable_no_hero_death; citadel_ability_cooldown_max 2\"":
+  cheat: true
+  group: binds
+  source: site
+  untested: true
+  th: "กด F3 เพื่อเปิด cheats, เปิดโหมดอมตะ และตั้งคูลดาวน์สกิลเป็น 2 วินาทีในครั้งเดียว"
+  practice: "ตั้งค่าห้องซ้อมคอมโบด้วยปุ่มเดียว"
+
+"bind F4 \"citadel_spawn_nearby_neutrals\"":
+  cheat: true
+  group: binds
+  source: site
+  untested: true
+  th: "กด F4 เพื่อเกิด neutral camp ใกล้ตัวใหม่"
+  practice: "ซ้อมฟาร์มแคมป์ซ้ำโดยไม่ต้องรอเกิด"
+
+"bind F5 \"healthpct 100\"":
+  cheat: true
+  group: binds
+  source: site
+  untested: true
+  th: "กด F5 เพื่อเติมเลือดเต็ม"
+  practice: "ซ้อมแลกดาเมจต่อได้ทันทีโดยไม่ต้องรอฟื้นเลือด"
+
+"bind F6 \"trooper_kill_all\"":
+  cheat: true
+  group: binds
+  source: site
+  untested: true
+  th: "กด F6 เพื่อฆ่า Trooper ทั้งหมด"
+  practice: "เคลียร์เลนเพื่อซ้อมสถานการณ์ใหม่"
+
+# --- อื่น ๆ (other), secondary source ---
+
+fps_max:
+  default: "400"
+  cheat: false
+  group: other
+  source: valve-dev-wiki
+  untested: true
+  th: "จำกัด FPS สูงสุด ใส่ 0 = ไม่จำกัด"
+  en: "Frame rate limiter. 0=no limit. Does not apply to dedicated server."
+
+volume:
+  default: "1"
+  cheat: false
+  group: other
+  source: valve-dev-wiki
+  untested: true
+  th: "ระดับเสียงของเกม"
+  en: "Sound volume"
+  noReleaseFlag: true

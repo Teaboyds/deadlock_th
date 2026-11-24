@@ -1,0 +1,67 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { sources } from '../data/sources';
+
+interface Props {
+  placement: CollectionEntry<'guides'>['data']['placement'];
+  /** Heading level of top-level sections; 3 when they sit inside a command group. */
+  level?: 2 | 3;
+}
+
+const { placement, level = 2 } = Astro.props;
+const Heading = level === 2 ? 'h2' : 'h3';
+const SubHeading = level === 2 ? 'h3' : 'h4';
+const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
+const topLevel = guides.filter((g) => g.data.placement === placement && !g.data.parent);
+
+const rendered = await Promise.all(
+  topLevel.map(async (guide) => ({
+    guide,
+    Content: (await render(guide)).Content,
+    children: await Promise.all(
+      guides
+        .filter((child) => child.data.parent === guide.id)
+        .map(async (child) => ({ guide: child, Content: (await render(child)).Content })),
+    ),
+  })),
+);
+---
+
+{
+  rendered.map(({ guide, Content, children }) => (
+    <section class="guide" aria-labelledby={`guide-${guide.id}`} data-guide={guide.id}>
+      <Heading id={`guide-${guide.id}`}>{guide.data.title}</Heading>
+      {guide.data.source !== 'deadlock-wiki' && (
+        <p class="source">
+          ที่มา: <span class="badge badge-source">{sources[guide.data.source].label}</span>
+          {guide.data.untested && <span class="badge badge-untested">ยังไม่ได้ทดสอบ</span>}
+        </p>
+      )}
+      <Content />
+      {children.map((child) => (
+        <section class="guide" aria-labelledby={`guide-${child.guide.id}`} data-guide={child.guide.id}>
+          <SubHeading id={`guide-${child.guide.id}`}>{child.guide.data.title}</SubHeading>
+          <child.Content />
+        </section>
+      ))}
+    </section>
+  ))
+}
+
+<script>
+  // Runnable commands in the prose are marked `code[data-command]` in the guide Markdown. Give each a
+  // copy button with CopyButton's markup; CopyButton's page-level click handler does the copying.
+  for (const code of document.querySelectorAll<HTMLElement>('.guide code[data-command]')) {
+    const text = code.textContent ?? '';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'copy-button';
+    button.dataset.copy = text;
+    button.setAttribute('aria-label', `คัดลอก ${text}`);
+    const label = document.createElement('span');
+    label.className = 'copy-button-text';
+    label.textContent = 'คัดลอก';
+    button.append(label);
+    code.after(' ', button);
+  }
+</script>
