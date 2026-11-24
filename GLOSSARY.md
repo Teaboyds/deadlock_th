@@ -18,6 +18,18 @@ _Avoid_: character, ตัวละคร, champion
 Something a Hero buys in the shop with souls during a match, named as in the game.
 _Avoid_: upgrade, ไอเทม (in headings and tab names)
 
+**Item category**:
+One of the shop's three item groups, named as in the game: Weapon, Vitality, Spirit.
+_Avoid_: type, class, "Spirits"
+
+**Tier**:
+An item's level within its category; a higher tier costs more souls. Tier 1 Weapon items cost 800 souls. Legendary is a separate group the wiki lists without a souls cost.
+_Avoid_: level, rank
+
+**Standard match**:
+The normal 6v6 game mode. All values on this site are for standard matches; other modes such as Street Brawl are left out.
+_Avoid_: normal mode, ranked
+
 ### Commands
 
 **Console command**:

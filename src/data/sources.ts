@@ -26,3 +26,12 @@ export const translatedOn = '2026-11-24';
 export type SourceId = keyof typeof sources;
 
 export const sourceIds = Object.keys(sources) as [SourceId, ...SourceId[]];
+
+// The Items page the item list was taken from; each item also records its own page and revision.
+export const itemsSource = {
+  label: 'deadlock.wiki — Items',
+  url: 'https://deadlock.wiki/Items',
+  revision: 'oldid=244252',
+  revisionUrl: 'https://deadlock.wiki/index.php?title=Items&oldid=244252',
+  fetchedOn: '2026-11-24',
+} as const;

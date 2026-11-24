@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { commandGroupIds } from './data/command-groups';
+import { itemCategories } from './data/item-categories';
 import { sourceIds } from './data/sources';
 import { strictYamlLoader } from './lib/strict-yaml-loader';
 
@@ -74,4 +75,64 @@ const guides = defineCollection({
     }),
 });
 
-export const collections = { commands, guides };
+const itemStat = z
+  .object({
+    /** Verbatim stat text from the wiki. */
+    text: z.string().min(1),
+    value: z.number(),
+    unit: z.string().min(1).optional(),
+    /** Stat name as in the shop, e.g. "Weapon Damage". */
+    label: z.string().min(1),
+    /** When the stat applies, e.g. "15m Close Range". */
+    condition: z.string().min(1).optional(),
+    /** Whether the value is shown with a leading "+". */
+    signed: z.boolean().default(true),
+  })
+  .strict();
+
+const thEn = { th: z.string().min(1), en: z.string().min(1) };
+
+// One entry per shop item, keyed by a slug id. Standard (6v6) match values only.
+const items = defineCollection({
+  loader: strictYamlLoader('src/content/items.yaml'),
+  schema: z
+    .object({
+      name: z.string().min(1),
+      category: z.enum(itemCategories),
+      /** A numbered tier, or Legendary (listed apart, without a souls cost). */
+      tier: z.union([z.number().int().min(1), z.literal('legendary')]),
+      cost: z.number().int().positive().optional(),
+      /** File name in the git-ignored icon folder. */
+      image: z.string().min(1),
+      source: z.object({ url: z.url(), oldid: z.number().int() }).strict(),
+      stats: z.array(itemStat),
+      passive: z
+        .object({ ...thEn, cooldownSeconds: z.number().positive().optional(), stats: z.array(itemStat) })
+        .strict()
+        .optional(),
+      /** Items this one builds into. */
+      componentOf: z.array(z.string().min(1)).default([]),
+      notes: z.array(z.object(thEn).strict()).default([]),
+      affectedAbilities: z
+        .array(
+          z
+            .object({
+              hero: z.string().min(1),
+              ability: z.string().min(1),
+              th: z.string().min(1).optional(),
+              en: z.string().min(1).optional(),
+            })
+            .strict(),
+        )
+        .default([]),
+      needsReview: z.boolean().default(false),
+    })
+    .strict()
+    .superRefine((item, ctx) => {
+      if (item.tier === 'legendary' ? item.cost !== undefined : item.cost === undefined) {
+        ctx.addIssue({ code: 'custom', path: ['cost'], message: 'numbered tiers need a cost; Legendary has none' });
+      }
+    }),
+});
+
+export const collections = { commands, guides, items };

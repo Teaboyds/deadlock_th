@@ -1,0 +1,201 @@
+# Items. Key = slug id. Standard (6v6) match values only; Street Brawl values are left out.
+# Source: deadlock.wiki Items page oldid=244252 and each item's page (oldid per entry),
+# fetched 2026-11-24 via /agent-wiki. See .scratch/items/spec.md.
+
+close-quarters:
+  name: "Close Quarters"
+  category: Weapon
+  tier: 1
+  cost: 800
+  image: "Close_Quarters.png"
+  source:
+    url: "https://deadlock.wiki/Close_Quarters"
+    oldid: 204425
+  stats:
+    - text: "+20% Melee Resist"
+      value: 20
+      unit: "%"
+      label: "Melee Resist"
+  passive:
+    th: "ได้ Weapon Damage เพิ่มเมื่ออยู่ระยะใกล้เป้าหมาย"
+    en: "Deal additional Weapon Damage when in close range to your target."
+    stats:
+      - text: "+20% Weapon Damage 15m Close Range"
+        value: 20
+        unit: "%"
+        label: "Weapon Damage"
+        condition: "15m Close Range"
+  componentOf: ["Point Blank"]
+
+extended-magazine:
+  name: "Extended Magazine"
+  category: Weapon
+  tier: 1
+  cost: 800
+  image: "Extended_Magazine.png"
+  source:
+    url: "https://deadlock.wiki/Extended_Magazine"
+    oldid: 204812
+  stats:
+    - text: "+30% Max Ammo"
+      value: 30
+      unit: "%"
+      label: "Max Ammo"
+    - text: "+8% Weapon Damage"
+      value: 8
+      unit: "%"
+      label: "Weapon Damage"
+  componentOf: ["Escalating Resilience", "Titanic Magazine"]
+  notes:
+    - th: "จำนวนกระสุนที่เพิ่มจะปัดขึ้น"
+      en: "The amount of ammo capacity added is rounded up."
+    - th: "แม็กที่ใส่อยู่ตอนซื้อจะไม่ได้กระสุนเพิ่ม"
+      en: "The current magazine does not gain additional bullets on purchase."
+
+headshot-booster:
+  name: "Headshot Booster"
+  category: Weapon
+  tier: 1
+  cost: 800
+  image: "Headshot_Booster.png"
+  source:
+    url: "https://deadlock.wiki/Headshot_Booster"
+    oldid: 204468
+  stats:
+    - text: "+30 Bonus Health"
+      value: 30
+      label: "Bonus Health"
+  passive:
+    th: "ยิงโดนหัว Hero ศัตรูนัดถัดไป จะได้ดาเมจอาวุธเพิ่ม"
+    en: "Your next headshot against an enemy Hero deals bonus weapon damage."
+    cooldownSeconds: 9
+    stats:
+      - text: "+45 Head Shot Bonus Damage"
+        value: 45
+        label: "Head Shot Bonus Damage"
+  componentOf: ["Headhunter"]
+  notes:
+    - th: "ไม่ทำงานเมื่อยิงหัว Trooper ศัตรู หรือ NPC อื่นที่มี hitbox หัว"
+      en: "This item does not activate when headshotting enemy Troopers, or any other NPC in possession of a headshot hitbox."
+    - th: "ดาเมจโบนัสจากการยิงหัวลดลงตามระยะ (damage falloff) ของ Hero"
+      en: "The bonus headshot weapon damage is affected by your Hero's damage falloff variables."
+    - th: "อาวุธแบบ shotgun ต้องให้เม็ดตรงกลางโดนหัวถึงจะนับ"
+      en: "For shotgun weapons, the centermost pellet must be a headshot to count."
+    - th: "Graves และ Deadman Danny ซื้อ Item นี้ไม่ได้ เพราะทำ critical damage ไม่ได้"
+      en: "This item can't be purchased by Graves or Deadman Danny, as they are incapable of dealing critical damage."
+
+high-velocity-rounds:
+  name: "High-Velocity Rounds"
+  category: Weapon
+  tier: 1
+  cost: 800
+  image: "High-Velocity_Rounds.png"
+  source:
+    url: "https://deadlock.wiki/High-Velocity_Rounds"
+    oldid: 204477
+  stats:
+    - text: "+45% Bullet Velocity"
+      value: 45
+      unit: "%"
+      label: "Bullet Velocity"
+    - text: "+8% Weapon Damage"
+      value: 8
+      unit: "%"
+      label: "Weapon Damage"
+  componentOf: ["Armor Piercer", "Express Shot", "Opening Rounds", "Sharpshooter"]
+
+monster-rounds:
+  name: "Monster Rounds"
+  category: Weapon
+  tier: 1
+  cost: 800
+  image: "Monster_Rounds.png"
+  source:
+    url: "https://deadlock.wiki/Monster_Rounds"
+    oldid: 218116
+  stats:
+    - text: "+25% Weapon Damage vs. NPCs"
+      value: 25
+      unit: "%"
+      label: "Weapon Damage vs. NPCs"
+    - text: "+25% Bullet Resist vs. NPCs"
+      value: 25
+      unit: "%"
+      label: "Bullet Resist vs. NPCs"
+    - text: "+1 Out of Combat Regen"
+      value: 1
+      label: "Out of Combat Regen"
+  componentOf: ["Cultist Sacrifice"]
+  notes:
+    - th: "เพิ่มดาเมจใส่ NPC ทุกแบบ ได้แก่ Trooper, Neutral รวมถึง Mid-Boss, สิ่งก่อสร้างในเลน และเป้าหมายของทีม เช่น Guardian, Walker, Shrine และ Patron"
+      en: "Monster Rounds applies additional damage to Non-Player Characters. This includes Troopers, Neutral entities including the Mid-Boss, as well as lane structures and team objectives such as Guardians, Walkers, Shrines, and the Patron."
+    - th: "Bullet Resist ที่เพิ่ม ลดดาเมจจาก Trooper, Neutral, Mid-Boss และ Guardian แต่ไม่มีผลกับ Walker, Shrine, Patron และตัวที่ Graves, McGinnis และ Rem เรียกออกมา เพราะพวกนี้ทำ Spirit Damage"
+      en: "The bonus Bullet Resist reduces damage from Troopers, Neutrals, Mid-Boss and Guardians but has no effect against Walkers, Shrines, the Patron, and Graves', McGinnis' and Rem's summons, since they deal Spirit Damage."
+  affectedAbilities:
+    - hero: "Graves"
+      ability: "Jar of Dead"
+    - hero: "Graves"
+      ability: "Grasping Hands"
+      th: "ghoul ปกติ และ ghoul ที่เพิ่มจาก T3"
+      en: "Base ghoul + T3 additional ghoul."
+    - hero: "Graves"
+      ability: "Borrowed Decree"
+    - hero: "McGinnis"
+      ability: "Mini Turret"
+    - hero: "McGinnis"
+      ability: "Spectral Wall"
+      th: "turret จาก T3"
+      en: "T3 turrets."
+    - hero: "Rem"
+      ability: "Lil Helpers"
+      th: "มีผลกับ trooper ที่ helper ตามอยู่"
+      en: "Affects trooper followed by helper."
+  needsReview: true  # Thai notes for the affected-abilities table are a best reading of short wiki notes; check them.
+
+rapid-rounds:
+  name: "Rapid Rounds"
+  category: Weapon
+  tier: 1
+  cost: 800
+  image: "Rapid_Rounds.png"
+  source:
+    url: "https://deadlock.wiki/Rapid_Rounds"
+    oldid: 204520
+  stats:
+    - text: "+9% Fire Rate"
+      value: 9
+      unit: "%"
+      label: "Fire Rate"
+  componentOf: ["Swift Striker", "Burst Fire"]
+
+restorative-shot:
+  name: "Restorative Shot"
+  category: Weapon
+  tier: 1
+  cost: 800
+  image: "Restorative_Shot.png"
+  source:
+    url: "https://deadlock.wiki/Restorative_Shot"
+    oldid: 231166
+  stats:
+    - text: "+6% Weapon Damage"
+      value: 6
+      unit: "%"
+      label: "Weapon Damage"
+  passive:
+    th: "กระสุนนัดถัดไปจะฮีลตัวเอง ปริมาณขึ้นกับเป้าที่ยิงโดน"
+    en: "Your next bullet will heal you based on what target you hit."
+    cooldownSeconds: 6
+    stats:
+      - text: "Healing 50 \"Healing From Heroes\""
+        value: 50
+        label: "Healing From Heroes"
+        signed: false
+      - text: "Healing 20 \"Healing From NPCs / Orbs\""
+        value: 20
+        label: "Healing From NPCs / Orbs"
+        signed: false
+  componentOf: []
+  notes:
+    - th: "ติดคูลดาวน์ทุกครั้งที่ยิง ไม่ว่าจะโดนเป้าหรือไม่ (ยกเว้น Graves และ Silver ตอนแปลงร่างด้วย Lycan Curse) จึงต้องเล็งให้ดีตอนคูลดาวน์พร้อม"
+      en: "Restorative Shot goes on cooldown regardless if the bullet hits a target, except for Graves and Silver while transformed with Lycan Curse, requiring the user to aim carefully when it's off cooldown."

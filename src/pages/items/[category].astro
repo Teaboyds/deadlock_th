@@ -1,0 +1,113 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ItemIcon from '../../components/ItemIcon.astro';
+import ItemPopup from '../../components/ItemPopup.astro';
+import ItemsSourcesFooter from '../../components/ItemsSourcesFooter.astro';
+import { categorySlug, itemCategories, itemPath, type ItemCategory } from '../../data/item-categories';
+import { tierOrder } from '../../lib/item-format';
+
+export function getStaticPaths() {
+  return itemCategories.map((category) => ({ params: { category: categorySlug(category) }, props: { category } }));
+}
+
+const { category } = Astro.props as { category: ItemCategory };
+const items = (await getCollection('items'))
+  .filter((i) => i.data.category === category)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+// One row per tier, labelled by its cost like the wiki's item lists; Legendary comes last.
+const tiers = [...new Set(items.map((i) => i.data.tier))]
+  .sort((a, b) => tierOrder(a) - tierOrder(b))
+  .map((tier) => {
+    const tierItems = items.filter((i) => i.data.tier === tier);
+    return { tier, cost: tierItems[0].data.cost, items: tierItems };
+  });
+---
+
+<SiteLayout title={category} currentTab="items">
+  <nav aria-label="breadcrumb" class="breadcrumbs mb-2 text-sm">
+    <ul>
+      <li><a href="/items">Items</a></li>
+      <li>{category}</li>
+    </ul>
+  </nav>
+  <h1 class="deco-title mb-8 text-center text-4xl sm:text-5xl">{category}</h1>
+
+  {
+    tiers.length === 0 ? (
+      <div class="flex flex-col items-center gap-4 py-8 text-center">
+        <span class="badge badge-outline badge-lg">Coming soon</span>
+        <p>หมวด {category} กำลังทำอยู่</p>
+        <a href="/items" class="btn btn-primary">
+          กลับไปหน้า Items
+        </a>
+      </div>
+    ) : (
+      <div class="space-y-4">
+        {tiers.map(({ tier, cost, items: tierItems }) => (
+          <section aria-labelledby={`tier-${tier}`} class="flex border border-base-300 bg-base-200">
+            <h2
+              id={`tier-${tier}`}
+              class="flex w-24 flex-none flex-col items-center justify-center gap-1.5 bg-base-300 px-4 py-6 font-display text-3xl sm:w-36"
+            >
+              {tier === 'legendary' ? (
+                <span class="text-lg sm:text-xl">Legendary</span>
+              ) : (
+                <>
+                  {cost}
+                  <span class="text-center font-sans text-sm leading-tight font-normal">
+                    souls<span class="hidden sm:inline"> · </span>
+                    <br class="sm:hidden" />
+                    Tier {tier}
+                  </span>
+                </>
+              )}
+            </h2>
+            <ul class="flex flex-1 flex-wrap items-center gap-x-2 gap-y-4 px-6 py-5">
+              {tierItems.map((item, index) => (
+                <li class="group relative flex items-center" data-item-entry>
+                  <a
+                    href={itemPath(category, item.id)}
+                    aria-describedby={`popup-${item.id}`}
+                    class="flex items-center gap-2 px-1 hover:underline"
+                  >
+                    <ItemIcon name={item.data.name} image={item.data.image} size="sm" decorative />
+                    {item.data.name}
+                  </a>
+                  <ItemPopup item={item} id={`popup-${item.id}`} />
+                  {index < tierItems.length - 1 && (
+                    <span class="px-1" aria-hidden="true">
+                      •
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    )
+  }
+
+  {tiers.length > 0 && <ItemsSourcesFooter />}
+</SiteLayout>
+
+<script>
+  // Popups open below their item, aligned left; flip to right-aligned when that would leave the screen.
+  const MARGIN_PX = 8;
+  for (const entry of document.querySelectorAll<HTMLElement>('[data-item-entry]')) {
+    const popup = entry.querySelector<HTMLElement>('.item-popup');
+    if (!popup) continue;
+    const place = () => {
+      popup.style.left = '';
+      popup.style.right = '';
+      if (popup.getBoundingClientRect().right > document.documentElement.clientWidth - MARGIN_PX) {
+        popup.style.left = 'auto';
+        popup.style.right = '0';
+      }
+    };
+    entry.addEventListener('mouseenter', place);
+    entry.addEventListener('focusin', place);
+  }
+</script>

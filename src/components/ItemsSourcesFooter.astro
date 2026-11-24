@@ -1,0 +1,13 @@
+---
+import { itemsSource } from '../data/sources';
+---
+
+<footer class="sources-footer mt-12 border-t border-base-300 pt-6 text-sm">
+  <h2 class="mb-3 text-xl">ที่มา</h2>
+  <p>
+    <a class="link" href={itemsSource.url}>{itemsSource.label}</a> · ฉบับแก้ไข{' '}
+    <a class="link" href={itemsSource.revisionUrl}>{itemsSource.revision}</a>{' '}
+    และหน้าของแต่ละ Item (ลิงก์อยู่ในหน้า Item)
+  </p>
+  <p class="mt-2 text-secondary">ดึงข้อมูลเมื่อ <time datetime={itemsSource.fetchedOn}>{itemsSource.fetchedOn}</time></p>
+</footer>

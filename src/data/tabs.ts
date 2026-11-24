@@ -21,8 +21,8 @@ export const tabs: Tab[] = [
     id: 'items',
     label: 'Items',
     href: '/items',
-    description: 'รายละเอียด Item ในร้านค้า ภาษาไทย',
-    status: 'coming-soon',
+    description: 'Item ในร้านค้า ค่าสถานะและ passive ภาษาไทย',
+    status: 'ready',
   },
   {
     id: 'commands',

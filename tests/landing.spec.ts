@@ -24,10 +24,8 @@ test('the landing page has a card per tab; tabs without content say coming soon'
   await expect(commands).toHaveAttribute('href', '/commands');
   await expect(commands).not.toContainText('Coming soon');
 
-  for (const name of ['Items', 'Heroes']) {
-    const card = tabs.getByRole('link', { name: new RegExp(name) });
-    await expect(card).toContainText('Coming soon');
-  }
+  await expect(tabs.getByRole('link', { name: /Items/ })).not.toContainText('Coming soon');
+  await expect(tabs.getByRole('link', { name: /Heroes/ })).toContainText('Coming soon');
 });
 
 test('the landing footer says the site is fan-made and not affiliated with Valve', async ({ page }) => {

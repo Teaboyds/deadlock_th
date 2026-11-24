@@ -1,0 +1,131 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import ItemIcon from '../../../components/ItemIcon.astro';
+import { categorySlug, itemPath } from '../../../data/item-categories';
+import { formatStat, tierLabel } from '../../../lib/item-format';
+
+export async function getStaticPaths() {
+  const items = await getCollection('items');
+  return items.map((item) => ({
+    params: { category: categorySlug(item.data.category), item: item.id },
+    props: { item, all: items },
+  }));
+}
+
+const { item, all } = Astro.props as { item: CollectionEntry<'items'>; all: CollectionEntry<'items'>[] };
+const { data } = item;
+
+
+// "Builds into" names link to the target's page once that item is on the site.
+const buildsInto = data.componentOf.map((name) => {
+  const target = all.find((i) => i.data.name === name);
+  return { name, href: target ? itemPath(target.data.category, target.id) : null };
+});
+---
+
+<SiteLayout title={data.name} currentTab="items">
+  <nav aria-label="breadcrumb" class="breadcrumbs mb-4 text-sm">
+    <ul>
+      <li><a href="/items">Items</a></li>
+      <li><a href={`/items/${categorySlug(data.category)}`}>{data.category}</a></li>
+      <li>{data.name}</li>
+    </ul>
+  </nav>
+
+  <article class="card deco-card mx-auto max-w-2xl bg-base-200">
+    <div class="card-body gap-5 p-6">
+      <div class="flex items-center gap-4">
+        <ItemIcon name={data.name} image={data.image} />
+        <div class="min-w-0">
+          <h1 class="font-display text-3xl">{data.name}</h1>
+          <p class="text-sm">
+            {data.category} · {tierLabel(data)}
+          </p>
+        </div>
+      </div>
+
+      <ul class="space-y-1 font-mono">
+        {data.stats.map((stat) => <li>{formatStat(stat)}</li>)}
+      </ul>
+
+      {
+        data.passive && (
+          <div class="space-y-2 border-l-4 border-secondary bg-base-100 px-4 py-3">
+            <p class="font-semibold text-secondary">
+              Passive
+              {data.passive.cooldownSeconds && <span> · คูลดาวน์ {data.passive.cooldownSeconds} วินาที</span>}
+            </p>
+            <p>{data.passive.th}</p>
+            <ul class="space-y-1 font-mono text-sm">
+              {data.passive.stats.map((stat) => (
+                <li>
+                  {formatStat(stat)}
+                  {stat.condition && <span class="ml-2 font-sans text-secondary">({stat.condition})</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+
+      {
+        buildsInto.length > 0 && (
+          <div>
+            <p class="mb-2 font-semibold">ใช้รวมเป็น</p>
+            <ul aria-label="ใช้รวมเป็น" class="flex flex-wrap gap-2">
+              {buildsInto.map(({ name, href }) => (
+                <li class="badge badge-outline border-base-300">{href ? <a href={href} class="hover:underline">{name}</a> : name}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+
+      {
+        data.notes.length > 0 && (
+          <div>
+            <p class="mb-2 font-semibold">หมายเหตุ</p>
+            <ul class="list-disc space-y-1 pl-5 text-sm">
+              {data.notes.map((note) => <li>{note.th}</li>)}
+            </ul>
+          </div>
+        )
+      }
+
+      {
+        data.affectedAbilities.length > 0 && (
+          <div class="overflow-x-auto">
+            <p class="mb-2 font-semibold">สกิลของ Hero ที่ได้ผลจาก Item นี้</p>
+            <table class="table-sm table">
+              <thead>
+                <tr class="border-base-300 text-base-content">
+                  <th>Hero</th>
+                  <th>สกิล</th>
+                  <th>หมายเหตุ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.affectedAbilities.map((a) => (
+                  <tr class="border-base-300">
+                    <td>{a.hero}</td>
+                    <td class="whitespace-nowrap">{a.ability}</td>
+                    <td>{a.th ?? '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )
+      }
+
+      <p class="text-sm">
+        ที่มา:{' '}
+        <a href={data.source.url} class="badge badge-sm border-base-300 bg-base-100 text-secondary hover:underline">
+          deadlock.wiki
+        </a>
+        <span class="ml-1">ฉบับแก้ไข oldid={data.source.oldid}</span>
+      </p>
+    </div>
+  </article>
+</SiteLayout>

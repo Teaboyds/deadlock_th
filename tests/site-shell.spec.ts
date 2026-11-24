@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const tabs = [
   { label: 'Heroes', path: '/heroes', comingSoon: true },
-  { label: 'Items', path: '/items', comingSoon: true },
+  { label: 'Items', path: '/items', comingSoon: false },
   { label: 'Commands', path: '/commands', comingSoon: false },
 ];
 

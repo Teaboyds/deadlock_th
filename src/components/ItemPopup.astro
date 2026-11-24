@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ItemIcon from './ItemIcon.astro';
+import { formatStat, tierLabel } from '../lib/item-format';
+
+interface Props {
+  item: CollectionEntry<'items'>;
+  id: string;
+}
+
+const { item, id } = Astro.props;
+const { data } = item;
+---
+
+<!-- Shown by the parent's hover or focus (see the category page); a summary of the item page. -->
+<div
+  id={id}
+  role="tooltip"
+  class="item-popup card deco-card invisible absolute top-full left-0 z-20 mt-2 w-72 bg-base-200 opacity-0 shadow-lg transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"
+>
+  <div class="card-body gap-3 p-4 text-sm">
+    <div class="flex items-center gap-3">
+      <ItemIcon name={data.name} image={data.image} size="sm" decorative />
+      <div>
+        <p class="font-display text-base">{data.name}</p>
+        <p class="text-xs">{tierLabel(data)}</p>
+      </div>
+    </div>
+    <ul class="space-y-0.5 font-mono text-xs">
+      {data.stats.map((stat) => <li>{formatStat(stat)}</li>)}
+    </ul>
+    {
+      data.passive && (
+        <div class="space-y-1 border-l-2 border-secondary bg-base-100 px-3 py-2 text-xs">
+          <p class="font-semibold text-secondary">
+            Passive{data.passive.cooldownSeconds && <span> · คูลดาวน์ {data.passive.cooldownSeconds} วินาที</span>}
+          </p>
+          <p>{data.passive.th}</p>
+          <ul class="space-y-0.5 font-mono">
+            {data.passive.stats.map((stat) => (
+              <li>
+                {formatStat(stat)}
+                {stat.condition && <span class="ml-1 font-sans text-secondary">({stat.condition})</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    <p class="text-xs">คลิกเพื่อดูรายละเอียด</p>
+  </div>
+</div>
