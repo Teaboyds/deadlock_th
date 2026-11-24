@@ -49,6 +49,10 @@
   --font-sans: 'Anuphan', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --breakpoint-wide: 1180px;
+
+  /* Status effect colours, the only colours outside the five-colour palette (user's choice). */
+  --color-buff: #0ba372;
+  --color-debuff: #ca401c;
 }
 
 :root {

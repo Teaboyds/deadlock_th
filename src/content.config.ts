@@ -159,4 +159,21 @@ const terms = defineCollection({
     .strict(),
 });
 
-export const collections = { commands, guides, items, terms };
+// One entry per status effect (buff, debuff, or a way to counter debuffs), keyed by a slug id.
+const statusEffects = defineCollection({
+  loader: strictYamlLoader('src/content/status-effects.yaml'),
+  schema: z
+    .object({
+      name: z.string().min(1),
+      aliases: z.array(z.string().min(1)).default([]),
+      kind: z.enum(['buff', 'debuff', 'counter']),
+      /** One-line Thai meaning. */
+      th: z.string().min(1),
+      explanation: z.object(thEn).strict(),
+      source: z.object({ url: z.url() }).strict().default({ url: 'https://deadlock.wiki/Status_Effects' }),
+      needsReview: z.boolean().default(false),
+    })
+    .strict(),
+});
+
+export const collections = { commands, guides, items, terms, statusEffects };

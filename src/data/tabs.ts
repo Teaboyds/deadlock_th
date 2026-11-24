@@ -38,4 +38,11 @@ export const tabs: Tab[] = [
     description: 'ศัพท์พื้นฐานในเกม เช่น Fire Rate และ Bullet Resist อธิบายเป็นภาษาไทย',
     status: 'ready',
   },
+  {
+    id: 'status-effects',
+    label: 'Status Effects',
+    href: '/status-effects',
+    description: 'Buff และ Debuff ทั้งหมด เช่น Stun และ Silence ทำอะไรได้บ้าง ภาษาไทย',
+    status: 'ready',
+  },
 ];

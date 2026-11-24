@@ -86,3 +86,14 @@ test('the back-to-top button appears on the Glossary after scrolling', async ({ 
   await page.getByRole('link', { name: 'กลับขึ้นด้านบน' }).click();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
 });
+
+test('Fire Rate and Bullet Velocity each explain how they differ, marked as written by the site', async ({ page }) => {
+  await page.goto('/glossary');
+  for (const [name, other] of [
+    ['Fire Rate', 'Bullet Velocity'],
+    ['Bullet Velocity', 'Fire Rate'],
+  ]) {
+    const note = term(page, name).getByRole('note', { name: 'เว็บนี้เขียนเพิ่ม' });
+    await expect(note).toContainText(other);
+  }
+});

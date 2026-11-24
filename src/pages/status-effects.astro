@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageContents from '../components/PageContents.astro';
+import CardSearch from '../components/CardSearch.astro';
+
+const effects = await getCollection('statusEffects');
+
+// Buffs are green and debuffs red: badge plus a coloured edge on the card.
+// Text on the badges: charcoal on green (5.0:1), white on red (4.9:1).
+const kinds = [
+  { id: 'buff', label: 'Buff', badge: 'Buff', badgeClass: 'bg-buff text-base-100', edgeClass: 'border-l-4 border-l-buff' },
+  { id: 'debuff', label: 'Debuff', badge: 'Debuff', badgeClass: 'bg-debuff text-white', edgeClass: 'border-l-4 border-l-debuff' },
+  { id: 'counter', label: 'วิธีรับมือ Debuff', badge: null, badgeClass: '', edgeClass: '' },
+] as const;
+
+const groups = kinds.map((kind) => ({
+  ...kind,
+  effects: effects.filter((e) => e.data.kind === kind.id).sort((a, b) => a.data.name.localeCompare(b.data.name)),
+}));
+
+const contents = groups.flatMap((group) => [
+  { href: `#effect-group-${group.id}`, label: group.label },
+  ...group.effects.map((e) => ({ href: `#effect-${e.id}`, label: e.data.name, nested: true })),
+]);
+---
+
+<SiteLayout title="Status Effects" currentTab="status-effects" wide>
+  <h1 class="deco-title mb-6 text-center text-4xl sm:text-5xl">Status Effects</h1>
+  <p class="mx-auto mb-8 max-w-2xl text-center">
+    ผลที่ติดตัวชั่วคราวระหว่างสู้ Buff คือผลดี Debuff คือผลเสีย อยู่ได้ช่วงหนึ่งจนกว่าจะหมดหรือถูกล้างด้วย Item
+    หรือสกิล
+  </p>
+
+  <div class="items-start wide:grid wide:grid-cols-[var(--sidebar)_minmax(0,1fr)] wide:gap-x-(--sidebar-gap)">
+    <PageContents items={contents} />
+    <div class="min-w-0">
+      <CardSearch label="ค้นหา Status Effect" placeholder="ชื่อภาษาอังกฤษหรือความหมายภาษาไทย" emptyText="ไม่พบ Status Effect ที่ตรงกับการค้นหา" />
+
+      {
+        groups.map((group) => (
+          <section class="mt-10" aria-labelledby={`effect-group-${group.id}`} data-search-group>
+            <h2 id={`effect-group-${group.id}`} class="deco-heading mb-4 text-2xl">
+              {group.label}
+            </h2>
+            <div class="grid gap-4 md:grid-cols-2">
+              {group.effects.map((effect) => (
+                <article
+                  id={`effect-${effect.id}`}
+                  aria-labelledby={`effect-name-${effect.id}`}
+                  class:list={['card deco-card bg-base-200', group.edgeClass]}
+                  data-search-card
+                  data-search={[effect.data.name, ...effect.data.aliases, effect.data.th].join(' ').toLocaleLowerCase()}
+                >
+                  <div class="card-body gap-3 p-5">
+                    <div>
+                      <div class="flex flex-wrap items-center gap-2">
+                        <h3 id={`effect-name-${effect.id}`} class="card-title font-display text-xl">
+                          {effect.data.name}
+                        </h3>
+                        {group.badge && (
+                          <span class:list={['badge badge-sm border-0 font-semibold', group.badgeClass]}>
+                            {group.badge}
+                          </span>
+                        )}
+                      </div>
+                      {effect.data.aliases.length > 0 && <p class="text-sm">หรือ {effect.data.aliases.join(' / ')}</p>}
+                    </div>
+                    <p class="font-semibold">{effect.data.th}</p>
+                    <p class="text-sm">{effect.data.explanation.th}</p>
+                    <p class="mt-auto text-sm">
+                      ที่มา:{' '}
+                      <a
+                        href={effect.data.source.url}
+                        class="badge badge-sm border-base-300 bg-base-100 text-secondary hover:underline"
+                      >
+                        deadlock.wiki
+                      </a>
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</SiteLayout>

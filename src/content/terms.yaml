@@ -25,6 +25,7 @@ fire-rate:
     en: Fire Rate, also known as Bullets Per Second, is a stat that determines the amount of ammo that will be fired by the weapon per second. Several heroes have abilities that increase their Fire Rate to shoot faster, and it can also be decreased, primarily through enemy items. Any total modifier lower than -50% is capped at that value. The in-game UI reports the total modifier itself, not the resulting change in bullets per second.
   source:
     url: https://deadlock.wiki/Fire_Rate
+  siteNote: ต่างจาก Bullet Velocity — Fire Rate คือยิงได้ถี่แค่ไหน (กี่นัดต่อวินาที) ส่วน Bullet Velocity คือกระสุนแต่ละนัดพุ่งเร็วแค่ไหน เพิ่ม Fire Rate ทำให้ยิงรัวขึ้น แต่กระสุนไม่ได้ไปถึงเป้าเร็วขึ้น
 
 bullet-velocity:
   name: Bullet Velocity
@@ -36,6 +37,7 @@ bullet-velocity:
   source:
     url: https://deadlock.wiki/Bullet_Velocity
     oldid: 68957
+  siteNote: ต่างจาก Fire Rate — Bullet Velocity คือกระสุนแต่ละนัดพุ่งเร็วแค่ไหน ส่วน Fire Rate คือยิงได้ถี่แค่ไหน (กี่นัดต่อวินาที) เพิ่ม Bullet Velocity ไม่ได้ทำให้ยิงรัวขึ้น แต่กระสุนไปถึงเป้าเร็วขึ้น เห็นผลชัดเมื่อยิงเป้าที่อยู่ไกล
 
 max-ammo:
   name: Max Ammo

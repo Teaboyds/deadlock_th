@@ -1,0 +1,244 @@
+# Status effects. Key = slug id. Names as in the game.
+# Source: https://deadlock.wiki/Status_Effects (no revision captured), fetched 2026-11-24 via /agent-wiki.
+# Names and descriptions only; the wiki's Sources lists and hero-specific effects are left out.
+
+# --- Buff ---
+
+barrier:
+  name: Barrier
+  kind: buff
+  th: เกราะชั่วคราวที่รับดาเมจแทนจนแตก
+  explanation:
+    th: โล่ชั่วคราวที่ดูดซับดาเมจที่เข้ามาได้จำนวนหนึ่ง แล้วจึงแตก
+    en: A temporary shield that absorbs a set amount of incoming damage before breaking.
+
+fire-rate-buff:
+  name: Fire Rate Buff
+  kind: buff
+  th: ยิงรัวขึ้นชั่วคราว
+  explanation:
+    th: บัฟชั่วคราวที่เพิ่มอัตราการยิงของอาวุธ
+    en: A temporary buff that increases the weapon's rate of fire.
+
+health-regeneration:
+  name: Health Regeneration
+  kind: buff
+  th: ฟื้นเลือดต่อเนื่องชั่วคราว
+  explanation:
+    th: บัฟชั่วคราวที่ฟื้นเลือดทีละน้อยต่อเนื่อง (HoT) ไม่นับการฮีลทันทีหรือ lifesteal
+    en: A temporary buff that restores health over time (HoT). This does not include instant heals or lifesteal.
+
+invincibility:
+  name: Invincibility
+  kind: buff
+  th: โดนดาเมจไม่ได้ชั่วคราว
+  explanation:
+    th: ช่วงสั้น ๆ ที่โดนดาเมจไม่ได้ และผลจากศัตรูใช้กับเราไม่ได้
+    en: The user cannot be damaged or targeted by hostile effects for a short duration.
+
+lifesteal:
+  name: Lifesteal
+  kind: buff
+  th: ฮีลตัวเองจากดาเมจที่ทำ
+  explanation:
+    th: บัฟชั่วคราวที่ทำให้ฮีลตัวเองเป็น % ของดาเมจที่ทำออกไป
+    en: A temporary buff that causes the user to heal for a percentage of the damage they deal.
+
+movement-speed-buff:
+  name: Movement Speed Buff
+  kind: buff
+  th: เคลื่อนที่เร็วขึ้นชั่วคราว
+  explanation:
+    th: เพิ่มความเร็วการเคลื่อนที่ชั่วคราว
+    en: A temporary increase to movement speed.
+
+resistance-buff:
+  name: Resistance Buff
+  kind: buff
+  th: ลดดาเมจที่โดนชั่วคราว
+  explanation:
+    th: บัฟชั่วคราวที่ลดดาเมจที่เข้ามาจากแหล่งใดแหล่งหนึ่ง (ดู Damage Resistance ในแท็บ Glossary)
+    en: A temporary buff that reduces incoming damage from a specific source.
+
+spirit-power-buff:
+  name: Spirit Power Buff
+  kind: buff
+  th: Spirit Power เพิ่มชั่วคราว
+  explanation:
+    th: เพิ่ม Spirit Power ชั่วคราว
+    en: A temporary increase to Spirit Power.
+
+stealth:
+  name: Stealth
+  kind: buff
+  th: ล่องหนชั่วคราว
+  explanation:
+    th: บัฟชั่วคราวที่ทำให้มองไม่เห็นตัว
+    en: A temporary buff that renders the user invisible.
+
+hidden-on-minimap:
+  name: Hidden on minimap
+  kind: buff
+  th: ไม่โผล่บนมินิแมพชั่วคราว
+  explanation:
+    th: บัฟชั่วคราวที่ทำให้มองไม่เห็นตัวเราบนมินิแมพ
+    en: A temporary buff that renders the user unable to be seen on the minimap.
+
+unstoppable:
+  name: Unstoppable
+  kind: buff
+  th: ไม่โดน crowd control
+  explanation:
+    th: บัฟแรงที่ทำให้ไม่โดน crowd control เช่น Stun, Silence, Sleep และ Immobilize แต่ยังโดนดาเมจได้ และยังโดน Healing Reduction
+    en: A powerful buff that grants immunity to crowd control effects like Stun, Silence, Sleep, and Immobilize. The user can still take damage while Unstoppable and is affected by healing reduction.
+
+weapon-damage-buff:
+  name: Weapon Damage Buff
+  kind: buff
+  th: ดาเมจอาวุธเพิ่มชั่วคราว
+  explanation:
+    th: เพิ่มดาเมจที่ทำด้วยอาวุธชั่วคราว
+    en: A temporary increase to weapon damage output.
+
+# --- Debuff ---
+
+bleed:
+  name: Bleed
+  kind: debuff
+  th: เสียเลือดเป็น % ต่อเนื่อง
+  explanation:
+    th: ทำดาเมจเป็น % ของเลือดเป้าหมายไปเรื่อย ๆ (Serrated Knives ทำ bleed แบบดาเมจคงที่แทน %)
+    en: A negative status effect that deals damage equal to a percentage of a unit's health over time. Note — Serrated Knives applies a unique variant of bleed that deals flat damage rather than percent health damage.
+
+burn:
+  name: Burn
+  kind: debuff
+  th: โดนดาเมจ spirit ต่อเนื่อง
+  explanation:
+    th: ทำ Spirit Damage ต่อเนื่องไปช่วงหนึ่ง
+    en: A negative status effect that deals Spirit Damage over time.
+
+curse:
+  name: Curse
+  kind: debuff
+  th: ยิงไม่ได้ ใช้สกิลและ active item ไม่ได้
+  explanation:
+    th: ขัดจังหวะ ทำให้ยิงไม่ได้ (disarm) และใช้สกิลกับ active item ไม่ได้ (silence)
+    en: A negative status effect that interrupts, disarms, and silences abilities and active items.
+
+damage-output-reduction:
+  name: Damage Output Reduction
+  kind: debuff
+  th: ทำดาเมจได้น้อยลง
+  explanation:
+    th: ลดดาเมจที่เป้าหมายทำออกไป บางแหล่งลดดาเมจทุกประเภท บางแหล่งลดเฉพาะบางประเภท
+    en: A negative status effect that reduces the damage output of the afflicted target. Some sources can reduce all damage types outputted, and others may only reduce a specific type.
+
+disarm:
+  name: Disarm
+  kind: debuff
+  th: ยิงปืนไม่ได้
+  explanation:
+    th: ยิงอาวุธไม่ได้ แต่ยังใช้สกิลและตีระยะประชิดได้ สกิลที่เปลี่ยนการยิงหลักก็โดนด้วย ส่วนสกิลที่ทำ Weapon Damage โดยไม่ใช้การยิงหลักไม่โดน
+    en: A negative status effect that prevents the afflicted target from firing their weapon. They are still capable of casting abilities and using melee attacks. Disarm affects abilities that modify the player's primary fire. However, it does not affect abilities that deal Weapon Damage without primary fire.
+
+displace:
+  name: Displace
+  kind: debuff
+  aliases: [Pull, Knockup, Knockback]
+  th: ถูกดึง ดีด หรือผลักให้เคลื่อนที่
+  explanation:
+    th: เปลี่ยนทิศและความเร่งของการเคลื่อนที่ของเป้าหมาย เช่น Pull (ดึงเข้า), Knockup (ดีดขึ้น) และ Knockback (ผลักกระเด็น)
+    en: A negative status effect that changes the direction and acceleration of the target's movement. Pull, knockup and knockback are types of displace.
+
+healing-reduction:
+  name: Healing Reduction
+  kind: debuff
+  th: ฮีลได้น้อยลง
+  explanation:
+    th: ลดการฮีลที่เป้าหมายได้รับจากทุกแหล่ง
+    en: A negative status effect that reduces the target's healing from all sources.
+
+immobilized:
+  name: Immobilized
+  kind: debuff
+  aliases: [Immobilize]
+  th: ขยับไม่ได้ แต่ยังยิงและใช้สกิลได้
+  explanation:
+    th: เคลื่อนที่ไม่ได้ (ถูกตรึงอยู่กับที่) แต่ยังใช้สกิลและยิงได้ และไม่ขัดสกิลที่กำลัง channel อยู่
+    en: A negative status effect that prevents the target from moving. While rooted in place, the target is free to use abilities and fire their weapon. It does not interrupt channeled abilities.
+
+movement-silence:
+  name: Movement Silence
+  kind: debuff
+  th: ใช้สกิลเคลื่อนที่ไม่ได้
+  explanation:
+    th: ทำให้เดินช้าลง (Movement Slow) และใช้สกิลกับ active item ที่ใช้เคลื่อนที่ไม่ได้ บางครั้งจำกัดการเคลื่อนที่เพิ่มอีก
+    en: A negative status effect that applies Movement Slow and prevents the target from casting movement-related abilities and active items, and in some cases further restricts movement.
+
+movement-slow:
+  name: Movement Slow
+  kind: debuff
+  th: เคลื่อนที่ช้าลง
+  explanation:
+    th: ลดความเร็วการเคลื่อนที่ รวมถึงตอนวิ่ง (sprint) ลดผลนี้ได้ด้วย Item เช่น Enduring Speed
+    en: A negative status effect that reduces the movement speed of the target, including sprint speed. Its effectiveness can be reduced through the use of items such as Enduring Speed.
+
+silence:
+  name: Silence
+  kind: debuff
+  th: ใช้สกิลไม่ได้
+  explanation:
+    th: ใช้สกิลไม่ได้ แต่ยังใช้ active item ได้ (ยกเว้นตอนโดน Curse) ไม่ปิด passive และไม่ขัดสกิลที่กำลัง channel อยู่
+    en: A negative status effect that prevents the target from casting abilities, but they can still use active items (with the exception of sources of curse). It neither disables passive abilities, nor interrupts channeled casts
+
+sleep:
+  name: Sleep
+  kind: debuff
+  th: หลับ ทำอะไรไม่ได้ แต่อาจตื่นเมื่อโดนตี
+  explanation:
+    th: ทำอะไรไม่ได้ แต่อาจตื่นเมื่อโดนดาเมจ ระหว่างหลับยังขยับได้แต่ช้ามาก และไม่ขัดสกิลที่กำลัง channel อยู่
+    en: A negative status effect that prevents the target from taking actions, but they may wake up upon taking damage. While sleeping, targets can move but extremely slowly. It does not interrupt channeled abilities.
+
+stun:
+  name: Stun
+  kind: debuff
+  th: มึน ขยับและทำอะไรไม่ได้เลย
+  explanation:
+    th: ขยับไม่ได้และทำอะไรไม่ได้เลยจนกว่าผลจะหมด และขัดสกิลที่กำลัง channel อยู่
+    en: A negative status effect that completely immobilizes the target and prevents them from taking any actions until the effect expires. Stuns interrupt channeled abilities.
+
+time-stop:
+  name: Time Stop
+  kind: debuff
+  aliases: [Time Slow, Slow Motion]
+  th: ทุกอย่างของเราช้าลง
+  explanation:
+    th: ทำให้การกระทำของผู้เล่นช้าลง รวมถึงแรงเฉื่อยและแรงโน้มถ่วง
+    en: A negative status effect that slows the speed of the player's actions, including the effects of inertia and gravity. Also known as Time Slow or Slow Motion.
+
+# --- วิธีรับมือ Debuff (counter) ---
+
+temporary-buffs:
+  name: Temporary Buffs
+  kind: counter
+  th: บัฟชั่วคราวที่กันดีบัฟ
+  explanation:
+    th: ทำให้ไม่โดนดีบัฟบางอย่างชั่วคราว ได้แก่ Invincibility (กันดาเมจและผลจากศัตรูทั้งหมด), Unstoppable (กัน crowd control) และ Indomitable (กัน crowd control ได้ 1 ครั้ง)
+    en: "These effects grant a short-term immunity to certain debuffs. Invincibility: Grants temporary immunity to all damage and hostile effects. Unstoppable: Grants temporary immunity to crowd control effects. Indomitable: Grants immunity to a single crowd control effect."
+
+purge:
+  name: Purge
+  kind: counter
+  th: ล้างดีบัฟออกทันที
+  explanation:
+    th: ล้างดีบัฟที่ติดอยู่ออกทันที Item ที่ทำได้คือ Dispel Magic และ Divine Barrier โดย Divine Barrier ล้างดีบัฟจาก Ultimate ได้ด้วย แต่ Dispel Magic ไม่ได้ (สกิลของ Hero บางตัวก็ล้างได้)
+    en: These effects instantly remove currently active debuffs. (Sources table — Removes debuffs from Ultimates? Dispel Magic, No; Divine Barrier, Yes; plus several hero abilities.)
+
+debuff-resistance:
+  name: Debuff Resistance
+  kind: counter
+  th: ดีบัฟหมดเร็วขึ้น
+  explanation:
+    th: ค่าสถานะที่ลดระยะเวลาของดีบัฟ เป็นค่าติดตัวของ Hero ไม่ใช่บัฟชั่วคราว (ยกเว้นที่ได้จาก Willpower)
+    en: The following effects grant a Debuff Resistance stat, which reduces the duration of debuffs. Except for Willpower, this is a character stat, not a temporary buff.

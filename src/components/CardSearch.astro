@@ -1,0 +1,56 @@
+---
+// Search box for a page of grouped cards. Groups carry data-search-group; cards carry data-search-card and
+// data-search (lower-case text to match). Works on the statically rendered list.
+interface Props {
+  /** Accessible name of the box, e.g. "ค้นหาคำศัพท์". */
+  label: string;
+  placeholder: string;
+  /** Shown when nothing matches. */
+  emptyText: string;
+}
+
+const { label, placeholder, emptyText } = Astro.props;
+---
+
+<!-- Hidden until the script runs, so readers without JavaScript only see the full list. -->
+<form class="mx-auto mb-4 max-w-xl" role="search" aria-label={label} data-card-search hidden>
+  <input
+    type="search"
+    class="input w-full border-base-300 bg-base-200"
+    aria-label={label}
+    placeholder={placeholder}
+    autocomplete="off"
+    spellcheck="false"
+  />
+</form>
+<p class="my-8 text-center text-secondary" role="status" data-card-search-empty hidden>{emptyText}</p>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-card-search]');
+  const empty = document.querySelector<HTMLElement>('[data-card-search-empty]');
+
+  if (form && empty) {
+    const input = form.querySelector('input')!;
+    const groups = [...document.querySelectorAll<HTMLElement>('[data-search-group]')];
+
+    const apply = () => {
+      const query = input.value.trim().toLocaleLowerCase();
+      let total = 0;
+      for (const group of groups) {
+        let visible = 0;
+        for (const card of group.querySelectorAll<HTMLElement>('[data-search-card]')) {
+          card.hidden = query !== '' && !(card.dataset.search ?? '').includes(query);
+          if (!card.hidden) visible++;
+        }
+        group.hidden = visible === 0;
+        total += visible;
+      }
+      empty.hidden = total > 0;
+    };
+
+    form.addEventListener('input', apply);
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.hidden = false;
+    apply();
+  }
+</script>

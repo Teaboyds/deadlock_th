@@ -5,6 +5,7 @@ const tabs = [
   { label: 'Items', path: '/items', comingSoon: false },
   { label: 'Commands', path: '/commands', comingSoon: false },
   { label: 'Glossary', path: '/glossary', comingSoon: false },
+  { label: 'Status Effects', path: '/status-effects', comingSoon: false },
 ];
 
 for (const path of ['/', ...tabs.map((t) => t.path)]) {

@@ -7,12 +7,16 @@ A Thai-language guide to the game Deadlock, written to be short and easy to unde
 ### Site
 
 **Tab**:
-A top-level part of the site covering one subject: Heroes, Items, Commands, Glossary (in menu order). Every tab is in the site menu; a tab without content yet shows a "Coming soon" page.
+A top-level part of the site covering one subject: Heroes, Items, Commands, Glossary, Status Effects (in menu order). Every tab is in the site menu; a tab without content yet shows a "Coming soon" page.
 _Avoid_: section (used for parts of a page), category
 
 **Term**:
-A game word, such as a stat name (Fire Rate, Bullet Resist), that the Glossary tab explains in Thai. Its name stays as shown in the game.
+A game word, such as a stat name (Fire Rate, Bullet Resist), that the Glossary tab explains in Thai. Its name stays as shown in the game. Status effects are not terms; they have their own tab.
 _Avoid_: definition, vocabulary, คำศัพท์ (as a label)
+
+**Status effect**:
+A temporary modifier put on a unit during a fight, named as in the game: a buff is positive (e.g. Unstoppable), a debuff negative (e.g. Stun). Shown on the Status Effects tab.
+_Avoid_: status, condition, CC (crowd control is a subset of debuffs)
 
 **Hero**:
 A playable character in Deadlock, named as in the game.

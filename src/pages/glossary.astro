@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PageContents from '../components/PageContents.astro';
+import CardSearch from '../components/CardSearch.astro';
 import { termGroups } from '../data/term-groups';
 import { itemPath } from '../data/item-categories';
 import { termForLabel } from '../lib/terms';
@@ -43,22 +44,15 @@ const contents = groups.flatMap((group) => [
   <div class="items-start wide:grid wide:grid-cols-[var(--sidebar)_minmax(0,1fr)] wide:gap-x-(--sidebar-gap)">
     <PageContents items={contents} />
     <div class="min-w-0">
-      <!-- Hidden until the script runs, so readers without JavaScript only see the full list. -->
-      <form class="mx-auto mb-4 max-w-xl" role="search" aria-label="ค้นหาคำศัพท์" data-term-search hidden>
-        <input
-          type="search"
-          class="input w-full border-base-300 bg-base-200"
-          aria-label="ค้นหาคำศัพท์"
-          placeholder="ชื่อภาษาอังกฤษหรือความหมายภาษาไทย"
-          autocomplete="off"
-          spellcheck="false"
-        />
-      </form>
-      <p class="my-8 text-center text-secondary" role="status" data-term-empty hidden>ไม่พบคำศัพท์ที่ตรงกับการค้นหา</p>
+      <CardSearch
+        label="ค้นหาคำศัพท์"
+        placeholder="ชื่อภาษาอังกฤษหรือความหมายภาษาไทย"
+        emptyText="ไม่พบคำศัพท์ที่ตรงกับการค้นหา"
+      />
 
       {
         groups.map((group) => (
-          <section class="mt-10" aria-labelledby={`term-group-${group.id}`} data-term-group>
+          <section class="mt-10" aria-labelledby={`term-group-${group.id}`} data-search-group>
             <h2 id={`term-group-${group.id}`} class="deco-heading mb-4 text-2xl">
               {group.label}
             </h2>
@@ -71,7 +65,7 @@ const contents = groups.flatMap((group) => [
                     id={`term-${term.id}`}
                     aria-labelledby={`term-name-${term.id}`}
                     class:list={['card deco-card bg-base-200', { 'border-secondary': term.data.overview }]}
-                    data-term
+                    data-search-card
                     data-search={search}
                   >
                     <div class="card-body gap-3 p-5">
@@ -126,32 +120,3 @@ const contents = groups.flatMap((group) => [
   </div>
 </SiteLayout>
 
-<script>
-  const form = document.querySelector<HTMLFormElement>('[data-term-search]');
-  const empty = document.querySelector<HTMLElement>('[data-term-empty]');
-
-  if (form && empty) {
-    const input = form.querySelector('input')!;
-    const groups = [...document.querySelectorAll<HTMLElement>('[data-term-group]')];
-
-    const apply = () => {
-      const query = input.value.trim().toLocaleLowerCase();
-      let total = 0;
-      for (const group of groups) {
-        let visible = 0;
-        for (const term of group.querySelectorAll<HTMLElement>('[data-term]')) {
-          term.hidden = query !== '' && !(term.dataset.search ?? '').includes(query);
-          if (!term.hidden) visible++;
-        }
-        group.hidden = visible === 0;
-        total += visible;
-      }
-      empty.hidden = total > 0;
-    };
-
-    form.addEventListener('input', apply);
-    form.addEventListener('submit', (event) => event.preventDefault());
-    form.hidden = false;
-    apply();
-  }
-</script>
