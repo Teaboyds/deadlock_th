@@ -5,3 +5,4 @@ test-results/
 playwright-report/
 dist-*/
 .DS_Store
+source_deadlock/
